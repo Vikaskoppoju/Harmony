@@ -278,13 +278,26 @@
       letter-spacing: 0.08em;
     }
 
+    @media (max-width: 900px) {
+      .gallery-grid { columns: 3 180px; }
+      .gallery-stats { padding: 3rem 0; }
+      .stats-row { gap: 2rem; }
+    }
     @media (max-width: 768px) {
       .gallery-grid { columns: 2 160px; }
+      .gallery-intro { padding: 3rem 0 2rem; }
+      .gallery-filters { top: 60px; }
       .lb-nav { display: none; }
+      .stat-item .num { font-size: 2.2rem; }
     }
     @media (max-width: 480px) {
-      .gallery-grid { columns: 2 140px; column-gap: 0.6rem; }
+      .gallery-grid { columns: 2 130px; column-gap: 0.6rem; }
       .gallery-item { margin-bottom: 0.6rem; }
+      .filter-bar { gap: 0.4rem; padding: 1rem 0.75rem; }
+      .filter-btn { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
+      .stats-row { gap: 1.25rem; }
+      .stat-item .num { font-size: 1.8rem; }
+      .stat-item .lbl { font-size: 0.75rem; }
     }
   </style>
 </head>

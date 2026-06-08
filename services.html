@@ -119,8 +119,10 @@
     .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
     @media(max-width:900px) {
+      .service-detail { padding: 4rem 0; }
       .service-detail-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .service-detail:nth-child(even) .service-detail-grid { direction: ltr; }
+      .service-detail:nth-child(even) .service-detail-grid > * { direction: ltr; }
       .clients-grid { grid-template-columns: repeat(2,1fr); }
       .process-mini-grid { grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
       .pm-step::after { display: none; }
@@ -129,6 +131,13 @@
       .service-features { grid-template-columns: 1fr; }
       .clients-grid { grid-template-columns: 1fr 1fr; }
       .process-mini-grid { grid-template-columns: repeat(2,1fr); }
+      .cta-banner { padding: 3.5rem 0; }
+      .cta-actions { flex-direction: column; align-items: center; }
+    }
+    @media(max-width:480px) {
+      .clients-grid { grid-template-columns: 1fr; }
+      .process-mini-grid { grid-template-columns: 1fr 1fr; }
+      .service-img-block { aspect-ratio: 3/2; }
     }
   </style>
 </head>

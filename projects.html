@@ -115,9 +115,21 @@
       .spotlight-grid { grid-template-columns: 1fr; }
       .spotlight-img { aspect-ratio: 16/9; }
       .spotlight-img-overlay { display: none; }
+      .spotlight-content { padding: 2.5rem; }
+      .spotlight { padding: 4rem 0; }
+      .stats-band { padding: 2.5rem 0; }
     }
     @media(max-width:600px) {
       .projects-grid { grid-template-columns: 1fr; }
+      .proj-filters { gap: 0.5rem; }
+      .proj-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+      .spotlight-content { padding: 2rem 1.5rem; }
+      .spotlight-details { grid-template-columns: 1fr; gap: 0.75rem; }
+      .sb-num { font-size: 2rem; }
+    }
+    @media(max-width:480px) {
+      .stats-band-inner { gap: 1rem; }
+      .sb-stat { min-width: 40%; }
     }
   </style>
 </head>

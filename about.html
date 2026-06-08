@@ -53,7 +53,7 @@
     /* ── CEO SECTION ── */
     .ceo-section { padding: 6rem 0; background: var(--white); }
     .ceo-grid {
-      display: grid; grid-template-columns: 420px 1fr;
+      display: grid; grid-template-columns: minmax(0, 420px) 1fr;
       gap: 5rem; align-items: center;
     }
     .ceo-img-wrap {
@@ -133,13 +133,22 @@
     .value-card p  { font-size: 0.87rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
 
     @media(max-width:900px) {
-      .ceo-grid { grid-template-columns: 1fr; }
-      .ceo-img-wrap { max-width: 380px; margin: 0 auto; }
+      .ceo-grid { grid-template-columns: 1fr !important; direction: ltr !important; }
+      .ceo-img-wrap { max-width: 380px; margin: 0 auto; direction: ltr !important; }
+      .ceo-content { margin-top: 2.5rem; }
       .values-grid { grid-template-columns: repeat(2,1fr); }
+      .timeline { padding: 4rem 0; }
     }
     @media(max-width:600px) {
+      .ceo-section { padding: 4rem 0; }
+      .ceo-stats { flex-wrap: wrap; gap: 1rem; }
+      .ceo-stat-num { font-size: 1.8rem; }
+      .ceo-social { flex-wrap: wrap; gap: 0.5rem; }
+      .ceo-social a { padding: 0.5rem 1rem; font-size: 0.78rem; }
+      .ceo-badge { right: auto !important; left: 50% !important; transform: translateX(-50%) !important; white-space: nowrap; }
       .values-grid { grid-template-columns: 1fr; }
-      .ceo-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .timeline-list { padding-left: 1.5rem; }
+      .timeline-item { padding: 0 0 2rem 1.5rem; }
     }
   </style>
 </head>
