@@ -807,12 +807,13 @@
       if (!isOpen) item.classList.add('open');
     });
 
-    /* Form submission — mailto (no backend required) */
-    document.getElementById('contactForm').addEventListener('submit', e => {
+    /* Form submission — Web3Forms */
+    document.getElementById('contactForm').addEventListener('submit', async e => {
       e.preventDefault();
       const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
 
-      // Basic validation
+      // Validate required fields
       const required = ['fname', 'lname', 'email', 'message'];
       let valid = true;
       required.forEach(id => {
@@ -822,33 +823,40 @@
       });
       if (!valid) return;
 
-      const fname   = document.getElementById('fname').value.trim();
-      const lname   = document.getElementById('lname').value.trim();
-      const email   = document.getElementById('email').value.trim();
-      const phone   = document.getElementById('phone').value.trim();
-      const country = document.getElementById('country').value;
-      const service = document.getElementById('service').value;
-      const budget  = document.getElementById('budget').value;
-      const message = document.getElementById('message').value.trim();
+      btn.disabled = true;
+      btn.innerHTML = 'Sending…';
 
-      const subject = encodeURIComponent(`New Enquiry from ${fname} ${lname} — Harmony Spaces by G`);
-      const body = encodeURIComponent(
-        `Name: ${fname} ${lname}\n` +
-        `Email: ${email}\n` +
-        `Phone: ${phone || 'Not provided'}\n` +
-        `Location: ${country || 'Not specified'}\n` +
-        `Service: ${service || 'Not specified'}\n` +
-        `Budget: ${budget || 'Not specified'}\n\n` +
-        `Message:\n${message}`
-      );
+      const data = {
+        access_key: '8c1ee0b8-00f6-4f9a-948a-8456f9e26da6',
+        subject: `New Enquiry from ${document.getElementById('fname').value.trim()} ${document.getElementById('lname').value.trim()} — Harmony Spaces by G`,
+        from_name: 'Harmony Spaces Website',
+        name:    `${document.getElementById('fname').value.trim()} ${document.getElementById('lname').value.trim()}`,
+        email:   document.getElementById('email').value.trim(),
+        phone:   document.getElementById('phone').value.trim() || 'Not provided',
+        country: document.getElementById('country').value || 'Not specified',
+        service: document.getElementById('service').value || 'Not specified',
+        budget:  document.getElementById('budget').value || 'Not specified',
+        message: document.getElementById('message').value.trim()
+      };
 
-      window.location.href = `mailto:ceo@harmonyspacesbyg.com?subject=${subject}&body=${body}`;
-
-      // Show success after a short delay
-      setTimeout(() => {
-        form.style.display = 'none';
-        document.getElementById('formSuccess').style.display = 'block';
-      }, 800);
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          throw new Error(json.message);
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Send Message';
+        alert('Something went wrong. Please try again or email us at ceo@harmonyspacesbyg.com');
+      }
     });
   </script>
 </body>
