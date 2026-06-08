@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Harmony Spaces by G</title>
+  <meta name="description" content="Get in touch with Harmony Spaces by G. Offices in Bahrain, Abu Dhabi, Oman, Hyderabad, and Bangalore. Let's design your dream space." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Contact Page ── */
+    .contact-main {
+      background: var(--dark);
+      padding: 6rem 0;
+    }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* Left: Info panel */
+    .contact-info h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .contact-info > p {
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+    .contact-detail-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .contact-detail-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      background: rgba(200,169,107,0.1);
+      border: 1px solid rgba(200,169,107,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+    .contact-detail-text h4 {
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .contact-detail-text a,
+    .contact-detail-text p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      display: block;
+      transition: color 0.2s;
+    }
+    .contact-detail-text a:hover { color: var(--gold); }
+
+    .contact-social { display: flex; gap: 1rem; margin-top: 0.5rem; }
+    .contact-social a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      transition: var(--trans);
+    }
+    .contact-social a:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+
+    /* Right: Form */
+    .contact-form-wrap {
+      background: var(--dark-3);
+      border: 1px solid rgba(200,169,107,0.12);
+      border-radius: 20px;
+      padding: 3rem;
+    }
+    .contact-form-wrap h3 {
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .contact-form-wrap > p {
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+    .form-group label {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 0.85rem 1.1rem;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(200,169,107,0.05);
+    }
+    .form-group select option { background: var(--dark-3); color: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-submit { margin-top: 0.5rem; }
+    .form-submit .btn { width: 100%; justify-content: center; display: flex; align-items: center; gap: 0.6rem; }
+    .form-note { margin-top: 1rem; color: rgba(255,255,255,0.35); font-size: 0.78rem; text-align: center; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .form-success .success-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(200,169,107,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      color: var(--gold);
+    }
+    .form-success h4 { color: var(--white); margin-bottom: 0.5rem; }
+    .form-success p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+
+    /* Offices Section */
+    .offices-section {
+      background: var(--dark-2);
+      padding: 6rem 0;
+    }
+    .offices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .office-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(200,169,107,0.1);
+      border-radius: 16px;
+      padding: 2.2rem;
+      transition: var(--trans);
+      position: relative;
+      overflow: hidden;
+    }
+    .office-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .office-card:hover { border-color: rgba(200,169,107,0.3); transform: translateY(-4px); }
+    .office-card:hover::before { opacity: 1; }
+    .office-flag {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .office-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .office-country {
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+    }
+    .office-info { display: flex; flex-direction: column; gap: 0.6rem; }
+    .office-info-row {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    .office-info-row svg { min-width: 14px; margin-top: 2px; color: var(--gold); }
+    .office-hq-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(200,169,107,0.12);
+      border: 1px solid rgba(200,169,107,0.25);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+
+    /* Map placeholder */
+    .map-section {
+      background: var(--dark);
+      padding: 0;
+    }
+    .map-container {
+      width: 100%;
+      height: 420px;
+      background: var(--dark-3);
+      position: relative;
+      overflow: hidden;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      filter: invert(90%) hue-rotate(180deg) brightness(0.85) saturate(0.7);
+    }
+    .map-overlay {
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dark-3);
+      border: 1px solid rgba(200,169,107,0.25);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      text-align: center;
+      pointer-events: none;
+    }
+    .map-overlay p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    .map-overlay strong { color: var(--gold); }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--dark-2);
+      padding: 6rem 0;
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .faq-item {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 1.6rem;
+      cursor: pointer;
+      color: var(--white);
+      font-weight: 500;
+      font-size: 0.95rem;
+      gap: 1rem;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--gold); }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      background: rgba(200,169,107,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 1.6rem;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 1.6rem 1.4rem;
+    }
+    .faq-answer p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.9rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav + Footer injected by components.js -->
+
+  <!-- Page Hero -->
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80')">
+    <div class="page-hero-content reveal">
+      <p class="section-tag">Get In Touch</p>
+      <h1>Contact Us</h1>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <span>Contact</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Contact Main -->
+  <section class="contact-main">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- Left: Info -->
+        <div class="contact-info reveal">
+          <p class="section-tag">Let's Connect</p>
+          <h2>We'd Love to Hear From You</h2>
+          <p>Whether you're planning a new home, a commercial fit-out, or a full construction project — our team is ready to listen, advise, and create something truly special for you.</p>
+
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14h.01v2.92z"/></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Phone Numbers</h4>
+                <a href="tel:+919804804408">+91 98048 04408 (India)</a>
+                <a href="tel:+97333143898">+973 3314 3898 (Bahrain)</a>
+              </div>
+            </div>
+
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Email Address</h4>
+                <a href="mailto:ceo@harmonyspacebyg.com">ceo@harmonyspacebyg.com</a>
+              </div>
+            </div>
+
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2H3v16h5l4 4 4-4h5V2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="12" y2="13"/></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>WhatsApp</h4>
+                <a href="https://wa.me/97333143898" target="_blank" rel="noopener">+973 3314 3898 — Chat instantly</a>
+              </div>
+            </div>
+
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Instagram</h4>
+                <a href="https://instagram.com/harmony_spaces_by_g" target="_blank" rel="noopener">@harmony_spaces_by_g</a>
+              </div>
+            </div>
+
+            <div class="contact-detail-item">
+              <div class="contact-detail-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="contact-detail-text">
+                <h4>Working Hours</h4>
+                <p>Sunday – Thursday: 9:00 AM – 7:00 PM</p>
+                <p>Saturday: 10:00 AM – 4:00 PM</p>
+                <p>Friday: Closed</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:0.5rem;color:rgba(255,255,255,0.5);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;">Follow Us</div>
+          <div class="contact-social">
+            <a href="https://instagram.com/harmony_spaces_by_g" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://wa.me/97333143898" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+            <a href="mailto:ceo@harmonyspacebyg.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="contact-form-wrap reveal">
+          <h3>Send Us a Message</h3>
+          <p>Fill in the details below and we'll get back to you within 24 hours.</p>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name *</label>
+                <input type="text" id="fname" name="fname" placeholder="Your first name" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name *</label>
+                <input type="text" id="lname" name="lname" placeholder="Your last name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+971 or +91 ..." />
+            </div>
+            <div class="form-group">
+              <label for="country">Your Location</label>
+              <select id="country" name="country">
+                <option value="" disabled selected>Select your country</option>
+                <option>Bahrain</option>
+                <option>United Arab Emirates</option>
+                <option>Oman</option>
+                <option>India — Hyderabad</option>
+                <option>India — Bangalore</option>
+                <option>Saudi Arabia</option>
+                <option>Kuwait</option>
+                <option>Qatar</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="service">Service Interested In</label>
+              <select id="service" name="service">
+                <option value="" disabled selected>Select a service</option>
+                <option>Residential Interior Design</option>
+                <option>Commercial Interior Design</option>
+                <option>Construction &amp; Fit-Out</option>
+                <option>3D Visualization</option>
+                <option>Furniture &amp; Décor</option>
+                <option>Landscape &amp; Outdoor</option>
+                <option>Full Project (Design + Build)</option>
+                <option>Consultation Only</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="budget">Approximate Budget</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select budget range</option>
+                <option>Under $10,000</option>
+                <option>$10,000 – $50,000</option>
+                <option>$50,000 – $150,000</option>
+                <option>$150,000 – $500,000</option>
+                <option>Above $500,000</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message *</label>
+              <textarea id="message" name="message" placeholder="Tell us about your project — type of space, size, style preferences, timeline..." required></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Send Message
+              </button>
+            </div>
+            <p class="form-note">🔒 Your information is kept strictly confidential.</p>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h4>Message Sent Successfully!</h4>
+            <p>Thank you for reaching out. Our team will get back to you within 24 hours at the email address provided.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Offices -->
+  <section class="offices-section">
+    <div class="container">
+      <div class="section-header reveal" style="text-align:center;">
+        <p class="section-tag" style="margin:0 auto 1rem;">Our Presence</p>
+        <h2 class="section-title">Office Locations</h2>
+        <p style="color:rgba(255,255,255,0.55);max-width:560px;margin:0 auto;">With five offices across the Middle East and India, we bring world-class design expertise to your doorstep.</p>
+      </div>
+      <div class="offices-grid">
+
+        <div class="office-card reveal">
+          <span class="office-hq-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Headquarters
+          </span>
+          <span class="office-flag">🇧🇭</span>
+          <h3>Manama</h3>
+          <div class="office-country">Bahrain</div>
+          <div class="office-info">
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Building 1245, Road 3625<br/>Block 336, Manama, Bahrain</span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/></svg>
+              <span><a href="tel:+97333143898">+973 3314 3898</a></span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Sun – Thu: 9 AM – 7 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="office-card reveal">
+          <span class="office-flag">🇦🇪</span>
+          <h3>Abu Dhabi</h3>
+          <div class="office-country">United Arab Emirates</div>
+          <div class="office-info">
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Hamdan Street, Al Markaziyah<br/>Abu Dhabi, UAE</span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/></svg>
+              <span><a href="tel:+97333143898">+973 3314 3898</a></span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Sun – Thu: 9 AM – 6 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="office-card reveal">
+          <span class="office-flag">🇴🇲</span>
+          <h3>Muscat</h3>
+          <div class="office-country">Oman</div>
+          <div class="office-info">
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Al Khuwair Business District<br/>Muscat, Sultanate of Oman</span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/></svg>
+              <span><a href="tel:+97333143898">+973 3314 3898</a></span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Sun – Thu: 9 AM – 6 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="office-card reveal">
+          <span class="office-flag">🇮🇳</span>
+          <h3>Hyderabad</h3>
+          <div class="office-country">India</div>
+          <div class="office-info">
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Jubilee Hills, Road No. 36<br/>Hyderabad, Telangana 500033</span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/></svg>
+              <span><a href="tel:+919804804408">+91 98048 04408</a></span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Mon – Sat: 9 AM – 7 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="office-card reveal">
+          <span class="office-flag">🇮🇳</span>
+          <h3>Bangalore</h3>
+          <div class="office-country">India</div>
+          <div class="office-info">
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Indiranagar, 100 Feet Road<br/>Bangalore, Karnataka 560038</span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.03 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/></svg>
+              <span><a href="tel:+919804804408">+91 98048 04408</a></span>
+            </div>
+            <div class="office-info-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Mon – Sat: 9 AM – 7 PM</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header reveal" style="text-align:center;">
+        <p class="section-tag" style="margin:0 auto 1rem;">Quick Answers</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-grid" id="faqGrid">
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            How long does an interior design project take?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Timelines vary by project scope. A single room redesign typically takes 4–8 weeks, while a full villa or commercial space can range from 3–12 months. We provide a detailed timeline after the initial consultation and site assessment.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            Do you work with clients outside of your office cities?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Absolutely. We regularly take on projects across the GCC and India. Our team travels to client sites for key milestones, and we use detailed 3D visualizations and virtual walkthroughs to keep remote projects on track.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            What is included in the initial consultation?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Our initial consultation is a 60-minute session where we discuss your vision, lifestyle, budget, and timeline. We conduct a site survey, present mood boards, and outline a customized project proposal. The first consultation is complimentary.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            Can you handle both design and construction?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes — this is one of our key strengths. Our integrated design-build model means one team handles everything from concept drawings and material selection through to construction, fit-out, and final styling. This reduces cost, delays, and miscommunication.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            What design styles do you specialize in?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>We are proficient in Contemporary, Modern Luxury, Arabian/Middle Eastern, Minimalist, Biophilic, Classic European, and transitional styles. More importantly, we specialize in creating bespoke designs that reflect each client's individual personality.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            How do you handle project budgets?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>We work transparently with fixed-price contracts for defined scopes. After the initial brief, we provide a detailed cost breakdown. We also offer value engineering options to help clients achieve maximum impact within their budget.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            Do you offer 3D visualizations before work begins?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, photorealistic 3D renderings and virtual walkthroughs are a standard part of our process. You will see exactly how your space will look — including materials, lighting, and furniture placement — before a single nail is hammered.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-question">
+            Is there a minimum project size?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>We welcome projects of all sizes — from a single room makeover to a full estate. For smaller consultations, we offer hourly advisory sessions. Contact us and we'll recommend the engagement model that best suits your needs.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="components.js"></script>
+  <script>
+    /* FAQ accordion */
+    document.getElementById('faqGrid').addEventListener('click', e => {
+      const q = e.target.closest('.faq-question');
+      if (!q) return;
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+
+    /* Form submission */
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

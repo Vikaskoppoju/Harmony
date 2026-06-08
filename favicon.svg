@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#090909"/>
+  <!-- House outline -->
+  <polyline points="12,30 32,10 52,30" fill="none" stroke="#c8a96b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="20,30 20,52 44,52 44,30" fill="none" stroke="#c8a96b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Inner peak -->
+  <polyline points="26,30 32,16 38,30" fill="none" stroke="#c8a96b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Vertical line -->
+  <line x1="32" y1="30" x2="32" y2="52" stroke="#c8a96b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Leaf branch -->
+  <path d="M44,22 Q52,18 56,24" fill="none" stroke="#c8a96b" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M47,20 Q50,16 53,18" fill="none" stroke="#c8a96b" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M50,22 Q54,20 55,23" fill="none" stroke="#c8a96b" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

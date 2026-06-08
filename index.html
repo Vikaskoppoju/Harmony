@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harmony Spaces by G — Interior Design & Construction</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <img src="logo1_nobg.png" alt="Harmony Spaces by G" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="logo-fallback" style="display:none">
+          <span class="logo-mark">H</span>
+          <div class="logo-text">
+            <span class="logo-main">Harmony Spaces</span>
+            <span class="logo-sub">by G</span>
+          </div>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO CAROUSEL ── -->
+  <section id="hero">
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="slide active">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80&fit=crop" alt="Luxury Living Room" loading="eager" />
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-tag">Interior Design</span>
+            <h1>Spaces That<br /><em>Tell Your Story</em></h1>
+            <p>Transforming visions into breathtaking interiors across Bahrain, Abu Dhabi, Oman & India.</p>
+            <div class="slide-actions">
+              <a href="#projects" class="btn btn-primary">View Projects</a>
+              <a href="#contact" class="btn btn-ghost">Get a Quote</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80&fit=crop" alt="Modern Kitchen" loading="lazy" />
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-tag">Construction</span>
+            <h1>Built With<br /><em>Precision & Soul</em></h1>
+            <p>End-to-end construction services that marry aesthetics with structural excellence.</p>
+            <div class="slide-actions">
+              <a href="#services" class="btn btn-primary">Our Services</a>
+              <a href="#contact" class="btn btn-ghost">Talk to Us</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=80&fit=crop" alt="Elegant Bedroom" loading="lazy" />
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-tag">Luxury Living</span>
+            <h1>Elegance<br /><em>Redefined</em></h1>
+            <p>Luxury interiors crafted to reflect your personality, lifestyle, and aspirations.</p>
+            <div class="slide-actions">
+              <a href="#gallery" class="btn btn-primary">View Gallery</a>
+              <a href="#contact" class="btn btn-ghost">Start a Project</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1600&q=80&fit=crop" alt="Contemporary Office" loading="lazy" />
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-tag">Commercial Spaces</span>
+            <h1>Work Spaces<br /><em>That Inspire</em></h1>
+            <p>Commercial interiors designed for productivity, brand identity, and lasting impressions.</p>
+            <div class="slide-actions">
+              <a href="#projects" class="btn btn-primary">See Our Work</a>
+              <a href="#contact" class="btn btn-ghost">Enquire Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80&fit=crop" alt="Modern Bathroom" loading="lazy" />
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span class="slide-tag">Bespoke Design</span>
+            <h1>Every Detail<br /><em>Matters</em></h1>
+            <p>From concept to completion — we sweat the small stuff so every space is extraordinary.</p>
+            <div class="slide-actions">
+              <a href="#about" class="btn btn-primary">About Us</a>
+              <a href="#contact" class="btn btn-ghost">Book a Consult</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Controls -->
+      <button class="carousel-btn prev" id="prevBtn" aria-label="Previous">&#8592;</button>
+      <button class="carousel-btn next" id="nextBtn" aria-label="Next">&#8594;</button>
+
+      <!-- Dots -->
+      <div class="carousel-dots" id="carouselDots"></div>
+
+      <!-- Progress bar -->
+      <div class="carousel-progress"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <!-- Floating stats -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-num" data-target="500">0</span><span class="stat-plus">+</span>
+        <span class="stat-label">Projects Delivered</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" data-target="5">0</span><span class="stat-plus">+</span>
+        <span class="stat-label">Years of Excellence</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" data-target="4">0</span><span class="stat-plus"></span>
+        <span class="stat-label">Country Presence</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" data-target="98">0</span><span class="stat-plus">%</span>
+        <span class="stat-label">Client Satisfaction</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-images">
+          <div class="about-img-main tilt-card">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80&fit=crop" alt="Interior Design Studio" loading="lazy" />
+          </div>
+          <div class="about-img-float tilt-card">
+            <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=80&fit=crop" alt="Design Detail" loading="lazy" />
+          </div>
+          <div class="about-badge">
+            <span class="badge-num">5</span>
+            <span class="badge-text">Years of<br/>Excellence</span>
+          </div>
+        </div>
+        <div class="about-content reveal">
+          <span class="section-tag">About Us</span>
+          <h2 class="section-title">Crafting Harmony<br />in Every Space</h2>
+          <p class="about-lead">Harmony Spaces by G is a premier interior design and construction firm operating across Bahrain, Abu Dhabi, Oman, Hyderabad, and Bangalore.</p>
+          <p>We believe great design goes beyond aesthetics — it shapes how you live, work, and feel. Our multidisciplinary team of architects, designers, and craftsmen collaborate to deliver spaces that are as functional as they are beautiful.</p>
+          <div class="about-pillars">
+            <div class="pillar">
+              <div class="pillar-icon">◈</div>
+              <div>
+                <strong>Design Excellence</strong>
+                <p>Award-winning concepts rooted in global trends and local culture.</p>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◉</div>
+              <div>
+                <strong>Premium Materials</strong>
+                <p>Sourced from the world's finest suppliers for lasting quality.</p>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◎</div>
+              <div>
+                <strong>On-Time Delivery</strong>
+                <p>Project management that respects your time and budget.</p>
+              </div>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Start Your Journey</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section id="services" class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag light">What We Do</span>
+        <h2 class="section-title light">Our Services</h2>
+        <p class="section-sub light">End-to-end design and construction solutions tailored to your vision.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal" style="--delay:0.1s">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80&fit=crop" alt="Residential Design" loading="lazy" />
+          </div>
+          <div class="service-body">
+            <div class="service-icon">🏡</div>
+            <h3>Residential Design</h3>
+            <p>Bespoke interiors for villas, apartments, and penthouses — spaces that feel unmistakably like home.</p>
+            <a href="services.html" class="service-link">Explore →</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="--delay:0.2s">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop" alt="Commercial Interiors" loading="lazy" />
+          </div>
+          <div class="service-body">
+            <div class="service-icon">🏢</div>
+            <h3>Commercial Interiors</h3>
+            <p>Office spaces, retail showrooms, and hospitality venues designed to inspire and perform.</p>
+            <a href="services.html" class="service-link">Explore →</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="--delay:0.3s">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80&fit=crop" alt="Construction" loading="lazy" />
+          </div>
+          <div class="service-body">
+            <div class="service-icon">🏗️</div>
+            <h3>Construction & Fit-Out</h3>
+            <p>Full-cycle construction from structural work to luxury fit-out, delivered to perfection.</p>
+            <a href="services.html" class="service-link">Explore →</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="--delay:0.4s">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?w=600&q=80&fit=crop" alt="3D Visualization" loading="lazy" />
+          </div>
+          <div class="service-body">
+            <div class="service-icon">🎨</div>
+            <h3>3D Visualization</h3>
+            <p>Photo-realistic renders and walkthroughs that let you experience your space before it's built.</p>
+            <a href="services.html" class="service-link">Explore →</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="--delay:0.5s">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80&fit=crop" alt="Furniture & Décor" loading="lazy" />
+          </div>
+          <div class="service-body">
+            <div class="service-icon">🛋️</div>
+            <h3>Furniture & Décor</h3>
+            <p>Curated collections of bespoke furniture and décor items crafted to complement every design.</p>
+            <a href="services.html" class="service-link">Explore →</a>
+          </div>
+        </div>
+        <div class="service-card reveal" style="--delay:0.6s">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80&fit=crop" alt="Landscape Design" loading="lazy" />
+          </div>
+          <div class="service-body">
+            <div class="service-icon">🌿</div>
+            <h3>Landscape & Outdoor</h3>
+            <p>Outdoor living spaces, gardens, and terraces designed to extend the beauty indoors — outward.</p>
+            <a href="services.html" class="service-link">Explore →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURED PROJECTS ── -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Our Work</span>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-sub">A curated selection of spaces we have transformed across the Middle East and India.</p>
+      </div>
+      <div class="projects-masonry">
+        <div class="project-item large reveal tilt-card">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80&fit=crop" alt="Luxury Villa Bahrain" loading="lazy" />
+          <div class="project-overlay">
+            <span class="project-cat">Residential · Bahrain</span>
+            <h3>Al Seef Luxury Villa</h3>
+            <p>5-bedroom waterfront villa with curated contemporary interiors.</p>
+          </div>
+        </div>
+        <div class="project-item reveal tilt-card" style="--delay:0.15s">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&fit=crop" alt="Corporate Office Abu Dhabi" loading="lazy" />
+          <div class="project-overlay">
+            <span class="project-cat">Commercial · Abu Dhabi</span>
+            <h3>Tech Hub Office</h3>
+            <p>Open-plan headquarters for a fintech company.</p>
+          </div>
+        </div>
+        <div class="project-item reveal tilt-card" style="--delay:0.25s">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700&q=80&fit=crop" alt="Modern Kitchen Hyderabad" loading="lazy" />
+          <div class="project-overlay">
+            <span class="project-cat">Residential · Hyderabad</span>
+            <h3>Banjara Hills Penthouse</h3>
+            <p>Penthouse kitchen and dining overhaul.</p>
+          </div>
+        </div>
+        <div class="project-item reveal tilt-card" style="--delay:0.1s">
+          <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=700&q=80&fit=crop" alt="Boutique Hotel Oman" loading="lazy" />
+          <div class="project-overlay">
+            <span class="project-cat">Hospitality · Oman</span>
+            <h3>Muscat Boutique Hotel</h3>
+            <p>Full fit-out for a 40-room luxury boutique hotel.</p>
+          </div>
+        </div>
+        <div class="project-item tall reveal tilt-card" style="--delay:0.2s">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&fit=crop" alt="Master Bedroom Bangalore" loading="lazy" />
+          <div class="project-overlay">
+            <span class="project-cat">Residential · Bangalore</span>
+            <h3>Whitefield Master Suite</h3>
+            <p>Tranquil master bedroom sanctuary with custom wardrobe.</p>
+          </div>
+        </div>
+        <div class="project-item reveal tilt-card" style="--delay:0.3s">
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700&q=80&fit=crop" alt="Contemporary Living" loading="lazy" />
+          <div class="project-overlay">
+            <span class="project-cat">Residential · Abu Dhabi</span>
+            <h3>Saadiyat Island Villa</h3>
+            <p>Minimalist living spaces inspired by sea and sand.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section id="gallery" class="section section-light">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Inspiration</span>
+        <h2 class="section-title">Design Gallery</h2>
+        <p class="section-sub">Browse our portfolio of interiors spanning living, dining, bedroom, kitchen, and commercial spaces.</p>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="gallery-filters reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="living">Living</button>
+        <button class="filter-btn" data-filter="bedroom">Bedroom</button>
+        <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+        <button class="filter-btn" data-filter="commercial">Commercial</button>
+        <button class="filter-btn" data-filter="outdoor">Outdoor</button>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" data-cat="living">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80&fit=crop" alt="Living Room 1" loading="lazy" />
+          <div class="gallery-hover"><span>Living Room · Bahrain</span></div>
+        </div>
+        <div class="gallery-item" data-cat="bedroom">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80&fit=crop" alt="Bedroom 1" loading="lazy" />
+          <div class="gallery-hover"><span>Master Bedroom · Bangalore</span></div>
+        </div>
+        <div class="gallery-item" data-cat="kitchen">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80&fit=crop" alt="Kitchen 1" loading="lazy" />
+          <div class="gallery-hover"><span>Modern Kitchen · Hyderabad</span></div>
+        </div>
+        <div class="gallery-item" data-cat="commercial">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop" alt="Office 1" loading="lazy" />
+          <div class="gallery-hover"><span>Corporate Office · Abu Dhabi</span></div>
+        </div>
+        <div class="gallery-item" data-cat="living">
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80&fit=crop" alt="Living Room 2" loading="lazy" />
+          <div class="gallery-hover"><span>Contemporary Living · Oman</span></div>
+        </div>
+        <div class="gallery-item" data-cat="bedroom">
+          <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=80&fit=crop" alt="Bedroom 2" loading="lazy" />
+          <div class="gallery-hover"><span>Suite Bedroom · Oman</span></div>
+        </div>
+        <div class="gallery-item" data-cat="kitchen">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80&fit=crop" alt="Kitchen 2" loading="lazy" />
+          <div class="gallery-hover"><span>Island Kitchen · Bahrain</span></div>
+        </div>
+        <div class="gallery-item" data-cat="commercial">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80&fit=crop" alt="Commercial 2" loading="lazy" />
+          <div class="gallery-hover"><span>Retail Space · Bangalore</span></div>
+        </div>
+        <div class="gallery-item" data-cat="outdoor">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80&fit=crop" alt="Outdoor 1" loading="lazy" />
+          <div class="gallery-hover"><span>Garden Terrace · Abu Dhabi</span></div>
+        </div>
+        <div class="gallery-item" data-cat="living">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80&fit=crop" alt="Living Room 3" loading="lazy" />
+          <div class="gallery-hover"><span>Open Plan Living · Hyderabad</span></div>
+        </div>
+        <div class="gallery-item" data-cat="bedroom">
+          <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?w=600&q=80&fit=crop" alt="Bedroom 3" loading="lazy" />
+          <div class="gallery-hover"><span>Minimalist Bedroom · Abu Dhabi</span></div>
+        </div>
+        <div class="gallery-item" data-cat="outdoor">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80&fit=crop" alt="Outdoor 2" loading="lazy" />
+          <div class="gallery-hover"><span>Poolside Lounge · Bahrain</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
+    <button class="lightbox-next" id="lightboxNext">&#8594;</button>
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="" />
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- ── PROCESS ── -->
+  <section id="process" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">How We Work</span>
+        <h2 class="section-title">Our Design Process</h2>
+      </div>
+      <div class="process-steps">
+        <div class="step reveal" style="--delay:0s">
+          <div class="step-num">01</div>
+          <div class="step-line"></div>
+          <div class="step-body">
+            <h3>Discovery</h3>
+            <p>We listen. Understanding your lifestyle, tastes, and goals is the foundation of every great project.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="--delay:0.1s">
+          <div class="step-num">02</div>
+          <div class="step-line"></div>
+          <div class="step-body">
+            <h3>Concept Design</h3>
+            <p>Our designers craft mood boards, space plans, and 3D visualizations for your approval.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="--delay:0.2s">
+          <div class="step-num">03</div>
+          <div class="step-line"></div>
+          <div class="step-body">
+            <h3>Development</h3>
+            <p>Detailed technical drawings, material selections, and vendor coordination for seamless execution.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="--delay:0.3s">
+          <div class="step-num">04</div>
+          <div class="step-line"></div>
+          <div class="step-body">
+            <h3>Execution</h3>
+            <p>On-site management with meticulous quality control at every stage of construction and fit-out.</p>
+          </div>
+        </div>
+        <div class="step reveal" style="--delay:0.4s">
+          <div class="step-num">05</div>
+          <div class="step-line"></div>
+          <div class="step-body">
+            <h3>Handover</h3>
+            <p>Final styling, walkthrough, and ongoing support — your dream space, delivered.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials" class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag light">Client Stories</span>
+        <h2 class="section-title light">What Our Clients Say</h2>
+      </div>
+      <div class="testimonials-slider" id="testimonialSlider">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"Harmony Spaces completely transformed our villa in Bahrain. Every room tells a story — it's more than beautiful, it feels like us."</blockquote>
+            <div class="reviewer">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&fit=crop&crop=face" alt="Ahmed Al Khalifa" loading="lazy" />
+              <div>
+                <strong>Ahmed Al Khalifa</strong>
+                <span>Villa Owner · Bahrain</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"Our new Abu Dhabi office has become a place our team is proud to come to every day. The design elevated our brand image enormously."</blockquote>
+            <div class="reviewer">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80&fit=crop&crop=face" alt="Priya Sharma" loading="lazy" />
+              <div>
+                <strong>Priya Sharma</strong>
+                <span>CEO, FinTech Startup · Abu Dhabi</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"From concept to handover, the team was professional, creative, and on time. Our Hyderabad penthouse exceeded every expectation."</blockquote>
+            <div class="reviewer">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&fit=crop&crop=face" alt="Rajesh Menon" loading="lazy" />
+              <div>
+                <strong>Rajesh Menon</strong>
+                <span>Homeowner · Hyderabad</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"The boutique hotel in Muscat is now our flagship property. Guests constantly compliment the interior — bookings have increased 40%."</blockquote>
+            <div class="reviewer">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80&fit=crop&crop=face" alt="Khalid Al Rashidi" loading="lazy" />
+              <div>
+                <strong>Khalid Al Rashidi</strong>
+                <span>Hotel Director · Oman</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-nav">
+          <button class="t-btn" id="tPrev">←</button>
+          <div class="t-dots" id="tDots"></div>
+          <button class="t-btn" id="tNext">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LOCATIONS ── -->
+  <section id="locations" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Where We Are</span>
+        <h2 class="section-title">Our Offices</h2>
+      </div>
+      <div class="locations-grid">
+        <div class="location-card reveal" style="--delay:0.1s">
+          <div class="loc-flag">🇧🇭</div>
+          <h3>Bahrain</h3>
+          <p>Middle East HQ</p>
+        </div>
+        <div class="location-card reveal" style="--delay:0.2s">
+          <div class="loc-flag">🇦🇪</div>
+          <h3>Abu Dhabi</h3>
+          <p>UAE Operations</p>
+        </div>
+        <div class="location-card reveal" style="--delay:0.3s">
+          <div class="loc-flag">🇴🇲</div>
+          <h3>Oman</h3>
+          <p>Muscat Studio</p>
+        </div>
+        <div class="location-card reveal" style="--delay:0.4s">
+          <div class="loc-flag">🇮🇳</div>
+          <h3>Hyderabad</h3>
+          <p>India Operations</p>
+        </div>
+        <div class="location-card reveal" style="--delay:0.5s">
+          <div class="loc-flag">🇮🇳</div>
+          <h3>Bangalore</h3>
+          <p>Design Studio</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="section section-dark">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <span class="section-tag light">Get In Touch</span>
+          <h2 class="section-title light">Let's Create<br />Something Beautiful</h2>
+          <p style="color:rgba(255,255,255,0.7);margin-bottom:2rem;">Ready to transform your space? Our design consultants are here to help you take the first step.</p>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <strong>Phone / WhatsApp</strong>
+                <a href="tel:+919804804408">+91 98048 04408</a>
+                <a href="tel:+97333143898">+973 3314 3898</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:ceo@harmonyspacebyg.com">ceo@harmonyspacebyg.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <strong>Offices</strong>
+                <span>Bahrain · Abu Dhabi · Oman · Hyderabad · Bangalore</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📷</div>
+              <div>
+                <strong>Instagram</strong>
+                <a href="https://instagram.com/harmony_spaces_by_g" target="_blank" rel="noopener">@harmony_spaces_by_g</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-wrap reveal" style="--delay:0.2s">
+          <form class="contact-form" id="contactForm" novalidate>
+            <h3>Send Us a Message</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="Your first name" required />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Your last name" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 or +973..." />
+            </div>
+            <div class="form-group">
+              <label for="service">Service Interest</label>
+              <select id="service" name="service">
+                <option value="">Select a service…</option>
+                <option>Residential Design</option>
+                <option>Commercial Interiors</option>
+                <option>Construction & Fit-Out</option>
+                <option>3D Visualization</option>
+                <option>Furniture & Décor</option>
+                <option>Landscape & Outdoor</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tell us about your project…" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Send Message →</button>
+            <div class="form-success" id="formSuccess">
+              ✓ Thank you! We'll be in touch within 24 hours.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="logo1_nobg.png" alt="Harmony Spaces by G" class="logo-img footer-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <span class="logo-fallback" style="display:none">
+              <span class="logo-mark">H</span>
+              <div class="logo-text">
+                <span class="logo-main">Harmony Spaces</span>
+                <span class="logo-sub">by G</span>
+              </div>
+            </span>
+          </a>
+          <p>Transforming spaces into extraordinary experiences across the Middle East and India since 2022.</p>
+          <div class="social-links">
+            <a href="https://instagram.com/harmony_spaces_by_g" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://wa.me/919804804408" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+            <a href="mailto:ceo@harmonyspacebyg.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#residential">Residential Design</a></li>
+            <li><a href="services.html#commercial">Commercial Interiors</a></li>
+            <li><a href="services.html#construction">Construction & Fit-Out</a></li>
+            <li><a href="services.html#visualization">3D Visualization</a></li>
+            <li><a href="services.html#furniture">Furniture & Décor</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><a href="tel:+919804804408">+91 98048 04408</a></p>
+          <p><a href="tel:+97333143898">+973 3314 3898</a></p>
+          <p><a href="mailto:ceo@harmonyspacebyg.com">ceo@harmonyspacebyg.com</a></p>
+          <p style="margin-top:1rem;color:rgba(255,255,255,0.5);font-size:0.85rem;">Bahrain · Abu Dhabi · Oman<br/>Hyderabad · Bangalore</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Harmony Spaces by G. All rights reserved.</p>
+        <p>Designed with ♥ for beautiful spaces.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <!-- WhatsApp Float -->
+  <a class="wa-float" href="https://wa.me/97333143898" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="wa-tooltip">Chat on WhatsApp</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>

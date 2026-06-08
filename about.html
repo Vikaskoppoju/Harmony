@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Harmony Spaces by G</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── CEO SECTION ── */
+    .ceo-section { padding: 6rem 0; background: var(--white); }
+    .ceo-grid {
+      display: grid; grid-template-columns: 420px 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .ceo-img-wrap {
+      position: relative;
+    }
+    .ceo-img-frame {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+    }
+    .ceo-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .ceo-gold-ring {
+      position: absolute; top: -18px; left: -18px; right: 18px; bottom: 18px;
+      border: 2px solid var(--gold); border-radius: 20px;
+      opacity: 0.35; z-index: -1;
+    }
+    .ceo-badge {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      border-radius: 16px; padding: 1.2rem 1.6rem;
+      box-shadow: 0 12px 35px rgba(200,169,107,0.4);
+    }
+    .ceo-badge-title { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.6); }
+    .ceo-badge-name  { display: block; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-top: 0.2rem; }
+    .ceo-content .section-tag { margin-bottom: 0.5rem; }
+    .ceo-content h2 { font-size: clamp(2rem,3.5vw,2.8rem); margin-bottom: 0.5rem; }
+    .ceo-role { font-size: 1rem; color: var(--gold); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1.75rem; }
+    .ceo-content p { color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; font-size: 0.98rem; }
+    .ceo-stats { display: flex; gap: 2.5rem; margin: 2.25rem 0; padding: 1.75rem 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .ceo-stat-num  { display: block; font-family: 'Playfair Display',serif; font-size: 2.2rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .ceo-stat-label{ display: block; font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+    .ceo-social { display: flex; gap: 0.75rem; margin-top: 2rem; }
+    .ceo-social a {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem; border-radius: 50px;
+      border: 1.5px solid #ddd; font-size: 0.82rem; font-weight: 500;
+      color: var(--text); transition: all 0.25s;
+    }
+    .ceo-social a:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── TIMELINE ── */
+    .timeline { padding: 6rem 0; background: var(--dark); }
+    .timeline-list { position: relative; padding-left: 2.5rem; }
+    .timeline-list::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, var(--gold), transparent); }
+    .timeline-item { position: relative; padding: 0 0 3rem 2.5rem; }
+    .timeline-item::before {
+      content:''; position:absolute; left:-7px; top:6px;
+      width:16px; height:16px; border-radius:50%;
+      background: var(--gold); box-shadow: 0 0 0 4px rgba(200,169,107,0.2);
+    }
+    .timeline-year { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.4rem; }
+    .timeline-item h3 { font-size: 1.15rem; color: var(--white); margin-bottom: 0.5rem; }
+    .timeline-item p  { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* ── TEAM ── */
+    .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .team-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.07); transition: transform 0.35s, box-shadow 0.35s; }
+    .team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+    .team-card-img { aspect-ratio: 1; overflow: hidden; }
+    .team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .team-card:hover .team-card-img img { transform: scale(1.06); }
+    .team-card-body { padding: 1.5rem; }
+    .team-card-body h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
+    .team-card-body .role { font-size: 0.82rem; color: var(--gold); font-weight: 600; margin-bottom: 0.75rem; }
+    .team-card-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── VALUES ── */
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .value-card {
+      background: var(--dark-3); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 2.25rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .value-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+    .value-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .value-card h3 { font-size: 1.1rem; color: var(--white); margin-bottom: 0.6rem; }
+    .value-card p  { font-size: 0.87rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    @media(max-width:900px) {
+      .ceo-grid { grid-template-columns: 1fr; }
+      .ceo-img-wrap { max-width: 380px; margin: 0 auto; }
+      .values-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width:600px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .ceo-stats { flex-wrap: wrap; gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav injected by components.js -->
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80&fit=crop" alt="About Harmony Spaces" />
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; About Us</p>
+      <h1>About <em>Harmony Spaces</em></h1>
+      <p>A passionate team of designers, architects, and craftsmen dedicated to creating spaces that inspire.</p>
+    </div>
+  </section>
+
+  <!-- ── COMPANY STORY ── -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-images">
+          <div class="about-img-main tilt-card reveal">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80&fit=crop" alt="Harmony Spaces Studio" loading="lazy" />
+          </div>
+          <div class="about-img-float tilt-card reveal">
+            <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=80&fit=crop" alt="Design Detail" loading="lazy" />
+          </div>
+          <div class="about-badge">
+            <span class="badge-num">5</span>
+            <span class="badge-text">Years of<br/>Excellence</span>
+          </div>
+        </div>
+        <div class="about-content reveal">
+          <span class="section-tag">Our Story</span>
+          <h2 class="section-title">Crafting Harmony<br />in Every Space</h2>
+          <p class="about-lead">Founded in 2022, Harmony Spaces by G began as a boutique interior design studio with a single mission — to make extraordinary design accessible.</p>
+          <p>What started as a small practice in Hyderabad has grown into a pan-regional powerhouse with offices across Bahrain, Abu Dhabi, Oman, Hyderabad, and Bangalore. Today, we serve discerning clients across the Middle East and India, delivering end-to-end design and construction solutions that stand the test of time.</p>
+          <p>Our multidisciplinary team of over 45 professionals — architects, interior designers, project managers, and master craftsmen — collaborate on every project to ensure no detail is overlooked and every vision is exceeded.</p>
+          <div class="about-pillars">
+            <div class="pillar">
+              <div class="pillar-icon">◈</div>
+              <div><strong>Design Excellence</strong><p>Award-winning concepts rooted in global trends and local culture.</p></div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◉</div>
+              <div><strong>Premium Materials</strong><p>Sourced from the world's finest suppliers for lasting quality.</p></div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◎</div>
+              <div><strong>On-Time Delivery</strong><p>Project management that respects your time and budget.</p></div>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Start Your Journey</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CEO SECTION ── -->
+  <section class="ceo-section">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:3.5rem">
+        <span class="section-tag">Leadership</span>
+        <h2 class="section-title">Meet Our CEO</h2>
+      </div>
+      <div class="ceo-grid">
+        <div class="ceo-img-wrap reveal">
+          <div class="ceo-img-frame">
+            <img src="ceo.jpg" alt="Ganesh Reddy Velagala — CEO Harmony Spaces by G" loading="lazy" />
+          </div>
+          <div class="ceo-gold-ring"></div>
+          <div class="ceo-badge">
+            <span class="ceo-badge-title">Chief Executive Officer</span>
+            <span class="ceo-badge-name">Ganesh Reddy Velagala</span>
+          </div>
+        </div>
+        <div class="ceo-content reveal" style="--delay:0.15s">
+          <span class="section-tag">Visionary Leader</span>
+          <h2>Ganesh Reddy Velagala</h2>
+          <p class="ceo-role">Founder & Chief Executive Officer</p>
+          <p>With over 5 years of experience spanning luxury residential design, high-end commercial interiors, and large-scale construction across the GCC and India, Ganesh Reddy Velagala is the creative and strategic force behind Harmony Spaces by G.</p>
+          <p>Born with an innate passion for architecture and beauty, Ganesh founded Harmony Spaces in 2022 with a conviction that great design should be deeply personal — a true reflection of the people who inhabit the space. Under his leadership, the firm has grown rapidly across five countries and earned a reputation for delivering spaces that are as functional as they are extraordinary.</p>
+          <p>Ganesh holds a strong foundation in design and construction management and brings a culturally rich perspective to every project — bridging the aesthetics of the Indian subcontinent with the refined luxury demands of the Middle East. He is a passionate advocate for quality craftsmanship and sustainable, people-first design.</p>
+          <div class="ceo-stats">
+            <div>
+              <span class="ceo-stat-num">5+</span>
+              <span class="ceo-stat-label">Years Experience</span>
+            </div>
+            <div>
+              <span class="ceo-stat-num">500+</span>
+              <span class="ceo-stat-label">Projects Delivered</span>
+            </div>
+            <div>
+              <span class="ceo-stat-num">5</span>
+              <span class="ceo-stat-label">Countries</span>
+            </div>
+            <div>
+              <span class="ceo-stat-num">45+</span>
+              <span class="ceo-stat-label">Team Members</span>
+            </div>
+          </div>
+          <div class="ceo-social">
+            <a href="mailto:ceo@harmonyspacebyg.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email the CEO
+            </a>
+            <a href="https://wa.me/919804804408" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+            <a href="https://instagram.com/harmony_spaces_by_g" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPANY TIMELINE ── -->
+  <section class="timeline">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag light">Our Journey</span>
+        <h2 class="section-title light">5 Years of Growth</h2>
+      </div>
+      <div class="timeline-list">
+        <div class="timeline-item reveal">
+          <div class="timeline-year">2022</div>
+          <h3>Founded in Hyderabad</h3>
+          <p>Harmony Spaces by G opens its first studio in Hyderabad with a passionate team and a bold vision for luxury interiors.</p>
+        </div>
+        <div class="timeline-item reveal" style="--delay:0.1s">
+          <div class="timeline-year">Early 2023</div>
+          <h3>First International Project — Bahrain</h3>
+          <p>Completed a landmark villa project in Bahrain, marking our first Middle East footprint and earning international recognition.</p>
+        </div>
+        <div class="timeline-item reveal" style="--delay:0.15s">
+          <div class="timeline-year">Mid 2023</div>
+          <h3>Bangalore Studio Opens</h3>
+          <p>Expanded to Bangalore to serve South India's booming luxury real estate market with a dedicated design studio.</p>
+        </div>
+        <div class="timeline-item reveal" style="--delay:0.2s">
+          <div class="timeline-year">Late 2023</div>
+          <h3>Abu Dhabi & Oman Offices Launch</h3>
+          <p>Established UAE and Oman operations, bringing our signature design ethos to two of the Gulf's most thriving markets.</p>
+        </div>
+        <div class="timeline-item reveal" style="--delay:0.25s">
+          <div class="timeline-year">Early 2024</div>
+          <h3>100+ Projects Milestone</h3>
+          <p>Surpassed 100 completed projects across residential, commercial, and hospitality sectors in just two years of operations.</p>
+        </div>
+        <div class="timeline-item reveal" style="--delay:0.3s">
+          <div class="timeline-year">Late 2024</div>
+          <h3>5-Country Presence Established</h3>
+          <p>Completed our regional expansion with offices across Bahrain, Abu Dhabi, Oman, Hyderabad, and Bangalore — 5 countries in 2 years.</p>
+        </div>
+        <div class="timeline-item reveal" style="--delay:0.35s">
+          <div class="timeline-year">2026</div>
+          <h3>500+ Projects & Growing Strong</h3>
+          <p>Delivering 500+ projects with a team of 45+ professionals, cementing our position as a leading design-build firm across the GCC and India.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MANAGING DIRECTOR ── -->
+  <section class="ceo-section" style="background:var(--dark-2);">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:3.5rem">
+        <span class="section-tag light">Senior Leadership</span>
+        <h2 class="section-title light">Managing Director</h2>
+      </div>
+      <div class="ceo-grid" style="direction:rtl;">
+        <div class="ceo-img-wrap reveal" style="direction:ltr;">
+          <div class="ceo-img-frame">
+            <img src="md.jpg" alt="Kada Tejasri — Managing Director, Harmony Spaces by G" loading="lazy" />
+          </div>
+          <div class="ceo-gold-ring"></div>
+          <div class="ceo-badge" style="left:-1.5rem;right:auto;">
+            <span class="ceo-badge-title">Managing Director</span>
+            <span class="ceo-badge-name">Kada Tejasri</span>
+          </div>
+        </div>
+        <div class="ceo-content reveal" style="--delay:0.15s;direction:ltr;">
+          <span class="section-tag">Operations Leader</span>
+          <h2 style="color:var(--white);">Kada Tejasri</h2>
+          <p class="ceo-role">Managing Director — Operations &amp; Design Strategy</p>
+          <p style="color:rgba(255,255,255,0.65);">With 5 years of experience in interior design operations and business development across the Middle East and India, Kada Tejasri drives the day-to-day excellence of Harmony Spaces by G. She is the operational heartbeat of the firm — ensuring every project runs seamlessly from brief to final handover.</p>
+          <p style="color:rgba(255,255,255,0.65);">Tejasri brings deep expertise in client relationship management, studio operations, and design quality control. She oversees teams of designers and project managers spread across all five offices, maintaining the consistency and luxury standard that defines the Harmony brand.</p>
+          <p style="color:rgba(255,255,255,0.65);">A passionate advocate for people-first design, Tejasri blends creative vision with sharp operational acumen — a combination that has been instrumental in scaling Harmony Spaces from a boutique studio to a multi-city design powerhouse in just a few years.</p>
+          <div class="ceo-stats" style="border-color:rgba(255,255,255,0.12);">
+            <div>
+              <span class="ceo-stat-num">5+</span>
+              <span class="ceo-stat-label" style="color:rgba(255,255,255,0.5);">Years Experience</span>
+            </div>
+            <div>
+              <span class="ceo-stat-num">300+</span>
+              <span class="ceo-stat-label" style="color:rgba(255,255,255,0.5);">Projects Managed</span>
+            </div>
+            <div>
+              <span class="ceo-stat-num">30+</span>
+              <span class="ceo-stat-label" style="color:rgba(255,255,255,0.5);">Team Members Led</span>
+            </div>
+            <div>
+              <span class="ceo-stat-num">5</span>
+              <span class="ceo-stat-label" style="color:rgba(255,255,255,0.5);">Studio Locations</span>
+            </div>
+          </div>
+          <div class="ceo-social">
+            <a href="mailto:ceo@harmonyspacebyg.com" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Get in Touch
+            </a>
+            <a href="https://wa.me/97333143898" target="_blank" rel="noopener" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+            <a href="https://instagram.com/harmony_spaces_by_g" target="_blank" rel="noopener" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES ── -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag light">What Drives Us</span>
+        <h2 class="section-title light">Our Core Values</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal">
+          <div class="value-icon">✦</div>
+          <h3>Design Integrity</h3>
+          <p>Every design decision is intentional. We never compromise on quality, honesty, or craftsmanship — even when no one is watching.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.1s">
+          <div class="value-icon">◈</div>
+          <h3>Client-First Culture</h3>
+          <p>Your vision is our brief. We listen deeply, collaborate openly, and go beyond expectations to deliver spaces that truly belong to you.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.2s">
+          <div class="value-icon">⬡</div>
+          <h3>Cultural Sensitivity</h3>
+          <p>We design for people and places — respecting local traditions, materials, and ways of living while bringing a global design perspective.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.1s">
+          <div class="value-icon">◉</div>
+          <h3>Sustainable Thinking</h3>
+          <p>Beautiful spaces should also be responsible ones. We prioritise eco-conscious materials, energy efficiency, and long-lasting designs.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.2s">
+          <div class="value-icon">▲</div>
+          <h3>Relentless Innovation</h3>
+          <p>We stay at the forefront of design technology — from parametric architecture to immersive 3D visualisation and smart home integration.</p>
+        </div>
+        <div class="value-card reveal" style="--delay:0.3s">
+          <div class="value-icon">◎</div>
+          <h3>Flawless Execution</h3>
+          <p>A great design is only great when perfectly built. Our construction and project management teams ensure zero compromise from blueprint to handover.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Footer injected by components.js -->
+  <script src="components.js"></script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Harmony Spaces by G</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── PROJECT FILTERS ── */
+    .proj-filters { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+    .proj-btn {
+      padding: 0.65rem 1.5rem; border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+      border: 1.5px solid #ddd; color: var(--muted); background: transparent; cursor: pointer; transition: all 0.25s;
+    }
+    .proj-btn.active, .proj-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+
+    /* ── PROJECT CARDS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .proj-card {
+      border-radius: 16px; overflow: hidden; background: var(--dark-3);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08); transition: transform 0.35s, box-shadow 0.35s;
+      cursor: pointer;
+    }
+    .proj-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+    .proj-card.hidden { display: none; }
+    .proj-card-img { aspect-ratio: 4/3; overflow: hidden; position: relative; }
+    .proj-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .proj-card:hover .proj-card-img img { transform: scale(1.06); }
+    .proj-tag-chip {
+      position: absolute; top: 1rem; left: 1rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--dark); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 50px;
+    }
+    .proj-card-body { padding: 1.5rem; }
+    .proj-card-body .proj-meta { font-size: 0.75rem; color: var(--gold); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .proj-card-body h3 { color: var(--white); font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .proj-card-body p  { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.65; margin-bottom: 1rem; }
+    .proj-card-body .proj-specs { display: flex; gap: 1.25rem; font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .proj-card-body .proj-specs span { display: flex; align-items: center; gap: 0.3rem; }
+
+    /* ── FEATURED PROJECT SPOTLIGHT ── */
+    .spotlight { background: var(--dark); padding: 6rem 0; }
+    .spotlight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.3); }
+    .spotlight-img { position: relative; aspect-ratio: 4/5; }
+    .spotlight-img img { width: 100%; height: 100%; object-fit: cover; }
+    .spotlight-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0) 50%, var(--dark-3) 100%); }
+    .spotlight-content { background: var(--dark-3); padding: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .spotlight-content .section-tag { margin-bottom: 0.5rem; }
+    .spotlight-content h2 { font-size: clamp(1.6rem,2.5vw,2.2rem); color: var(--white); margin-bottom: 0.75rem; }
+    .spotlight-content p { color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 1.25rem; font-size: 0.92rem; }
+    .spotlight-details { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0 2rem; }
+    .spotlight-detail label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+    .spotlight-detail span  { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+
+    /* ── STATS BAND ── */
+    .stats-band { background: linear-gradient(135deg, var(--gold), var(--gold-lt)); padding: 3.5rem 0; }
+    .stats-band-inner { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1.5rem; }
+    .sb-stat { text-align: center; }
+    .sb-num   { display: block; font-family:'Playfair Display',serif; font-size: 2.5rem; font-weight: 700; color: var(--dark); line-height: 1; }
+    .sb-label { display: block; font-size: 0.8rem; font-weight: 600; color: rgba(0,0,0,0.6); margin-top: 0.3rem; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.95);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center; }
+    .lightbox.open { display:flex; }
+    .lb-inner { max-width:90vw;max-height:90vh;text-align:center; }
+    .lb-inner img { max-width:90vw;max-height:78vh;object-fit:contain;border-radius:8px; }
+    .lb-title { color:rgba(255,255,255,0.8);font-size:0.9rem;margin-top:1rem; }
+    .lb-close { position:absolute;top:1.5rem;right:1.5rem;color:rgba(255,255,255,0.7);font-size:1.4rem;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.25s;border:none; }
+    .lb-close:hover { background:var(--gold);color:var(--dark); }
+
+    @media(max-width:900px) {
+      .projects-grid { grid-template-columns: repeat(2,1fr); }
+      .spotlight-grid { grid-template-columns: 1fr; }
+      .spotlight-img { aspect-ratio: 16/9; }
+      .spotlight-img-overlay { display: none; }
+    }
+    @media(max-width:600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80&fit=crop" alt="Our Projects" />
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Projects</p>
+      <h1>Our <em>Projects</em></h1>
+      <p>500+ completed projects across Bahrain, Abu Dhabi, Oman, Hyderabad, and Bangalore — each one a story worth telling.</p>
+    </div>
+  </section>
+
+  <!-- ── STATS BAND ── -->
+  <div class="stats-band">
+    <div class="container">
+      <div class="stats-band-inner">
+        <div class="sb-stat"><span class="sb-num">500+</span><span class="sb-label">Projects Delivered</span></div>
+        <div class="sb-stat"><span class="sb-num">5</span><span class="sb-label">Countries</span></div>
+        <div class="sb-stat"><span class="sb-num">5+</span><span class="sb-label">Years Experience</span></div>
+        <div class="sb-stat"><span class="sb-num">98%</span><span class="sb-label">Client Satisfaction</span></div>
+        <div class="sb-stat"><span class="sb-num">45+</span><span class="sb-label">Team Members</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ALL PROJECTS ── -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag light">Portfolio</span>
+        <h2 class="section-title light">Explore Our Work</h2>
+      </div>
+
+      <div class="proj-filters reveal">
+        <button class="proj-btn active" data-filter="all">All Projects</button>
+        <button class="proj-btn" data-filter="residential">Residential</button>
+        <button class="proj-btn" data-filter="commercial">Commercial</button>
+        <button class="proj-btn" data-filter="hospitality">Hospitality</button>
+        <button class="proj-btn" data-filter="bahrain">Bahrain</button>
+        <button class="proj-btn" data-filter="uae">UAE</button>
+        <button class="proj-btn" data-filter="india">India</button>
+        <button class="proj-btn" data-filter="oman">Oman</button>
+      </div>
+
+      <div class="projects-grid" id="projGrid">
+
+        <div class="proj-card reveal" data-cat="residential bahrain">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=700&q=80&fit=crop" alt="Al Seef Villa" loading="lazy" />
+            <span class="proj-tag-chip">Residential</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Bahrain · 2024</p>
+            <h3>Al Seef Luxury Villa</h3>
+            <p>5-bedroom waterfront villa with curated contemporary interiors including a private cinema and spa suite.</p>
+            <div class="proj-specs">
+              <span>🏠 5 Bed</span>
+              <span>📐 780 m²</span>
+              <span>⏱ 8 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" style="--delay:0.1s" data-cat="commercial uae">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&fit=crop" alt="Tech Hub Office" loading="lazy" />
+            <span class="proj-tag-chip">Commercial</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Abu Dhabi · 2024</p>
+            <h3>Tech Hub HQ</h3>
+            <p>Open-plan headquarters for a leading fintech company — agile, branded, and built for collaboration.</p>
+            <div class="proj-specs">
+              <span>💼 Office</span>
+              <span>📐 1,200 m²</span>
+              <span>⏱ 5 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" style="--delay:0.2s" data-cat="hospitality oman">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=700&q=80&fit=crop" alt="Muscat Boutique Hotel" loading="lazy" />
+            <span class="proj-tag-chip">Hospitality</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Oman · 2023</p>
+            <h3>Muscat Boutique Hotel</h3>
+            <p>Full fit-out of a 40-room boutique hotel in Muscat with Omani cultural motifs and contemporary luxury finishes.</p>
+            <div class="proj-specs">
+              <span>🏨 40 Rooms</span>
+              <span>📐 3,500 m²</span>
+              <span>⏱ 14 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" data-cat="residential india">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=700&q=80&fit=crop" alt="Banjara Hills Penthouse" loading="lazy" />
+            <span class="proj-tag-chip">Residential</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Hyderabad · 2023</p>
+            <h3>Banjara Hills Penthouse</h3>
+            <p>Dual-level penthouse overhaul with open-plan kitchen, dining, sky terrace, and bespoke master suite.</p>
+            <div class="proj-specs">
+              <span>🏠 4 Bed</span>
+              <span>📐 540 m²</span>
+              <span>⏱ 6 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" style="--delay:0.1s" data-cat="residential uae">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=700&q=80&fit=crop" alt="Saadiyat Island Villa" loading="lazy" />
+            <span class="proj-tag-chip">Residential</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Abu Dhabi · 2023</p>
+            <h3>Saadiyat Island Villa</h3>
+            <p>Minimalist beachside villa inspired by sea and sand — neutral palette, bespoke stone features, and infinity pool.</p>
+            <div class="proj-specs">
+              <span>🏠 6 Bed</span>
+              <span>📐 1,100 m²</span>
+              <span>⏱ 12 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" style="--delay:0.2s" data-cat="residential india">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&fit=crop" alt="Whitefield Suite" loading="lazy" />
+            <span class="proj-tag-chip">Residential</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Bangalore · 2022</p>
+            <h3>Whitefield Master Suite</h3>
+            <p>Tranquil master bedroom sanctuary with custom walk-in wardrobe, en-suite spa bathroom, and reading alcove.</p>
+            <div class="proj-specs">
+              <span>🏠 Master Suite</span>
+              <span>📐 180 m²</span>
+              <span>⏱ 3 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" data-cat="commercial india">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80&fit=crop" alt="Bangalore Retail" loading="lazy" />
+            <span class="proj-tag-chip">Commercial</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Bangalore · 2023</p>
+            <h3>Luxury Retail Flagship</h3>
+            <p>Premium retail showroom design with curated brand zones, lighting drama, and immersive customer journey.</p>
+            <div class="proj-specs">
+              <span>🛍 Retail</span>
+              <span>📐 650 m²</span>
+              <span>⏱ 4 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" style="--delay:0.1s" data-cat="residential bahrain">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80&fit=crop" alt="Amwaj Kitchen" loading="lazy" />
+            <span class="proj-tag-chip">Residential</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Bahrain · 2022</p>
+            <h3>Amwaj Island Kitchen</h3>
+            <p>Statement island kitchen and open-plan dining for a contemporary Bahraini residence — Calacatta marble throughout.</p>
+            <div class="proj-specs">
+              <span>🍳 Kitchen</span>
+              <span>📐 120 m²</span>
+              <span>⏱ 2.5 months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card reveal" style="--delay:0.2s" data-cat="hospitality bahrain">
+          <div class="proj-card-img">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80&fit=crop" alt="Bahrain Restaurant" loading="lazy" />
+            <span class="proj-tag-chip">Hospitality</span>
+          </div>
+          <div class="proj-card-body">
+            <p class="proj-meta">Bahrain · 2024</p>
+            <h3>Manama Fine Dining</h3>
+            <p>Intimate fine-dining restaurant in Manama City Centre with hand-crafted Arabic geometric detailing and dramatic lighting.</p>
+            <div class="proj-specs">
+              <span>🍽 Restaurant</span>
+              <span>📐 420 m²</span>
+              <span>⏱ 5 months</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURED SPOTLIGHT ── -->
+  <section class="spotlight">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:3rem;">
+        <span class="section-tag light">Project Spotlight</span>
+        <h2 class="section-title light">Al Seef Luxury Villa, Bahrain</h2>
+      </div>
+      <div class="spotlight-grid reveal">
+        <div class="spotlight-img">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80&fit=crop" alt="Al Seef Villa Spotlight" loading="lazy" />
+          <div class="spotlight-img-overlay"></div>
+        </div>
+        <div class="spotlight-content">
+          <span class="section-tag">Featured · 2024</span>
+          <h2>A Waterfront Villa That Tells a Story</h2>
+          <p>This five-bedroom waterfront villa in Bahrain's prestigious Al Seef district was a dream project — a complete interior transformation for a family who wanted their home to feel like an exclusive resort.</p>
+          <p>Every room was designed with bespoke joinery, imported Italian stone, curated art pieces, and smart-home technology. The result: a home that earned a feature in Gulf Design Magazine and a 5-star client review.</p>
+          <div class="spotlight-details">
+            <div class="spotlight-detail"><label>Location</label><span>Al Seef, Bahrain</span></div>
+            <div class="spotlight-detail"><label>Project Type</label><span>Luxury Residential</span></div>
+            <div class="spotlight-detail"><label>Project Area</label><span>780 m²</span></div>
+            <div class="spotlight-detail"><label>Duration</label><span>8 Months</span></div>
+            <div class="spotlight-detail"><label>Style</label><span>Contemporary Luxury</span></div>
+            <div class="spotlight-detail"><label>Status</label><span>Completed · 2024</span></div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Start a Similar Project →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose">✕</button>
+    <div class="lb-inner">
+      <img id="lbImg" src="" alt="" />
+      <div class="lb-title" id="lbTitle"></div>
+    </div>
+  </div>
+
+  <!-- Footer injected by components.js -->
+  <script src="components.js"></script>
+  <script>
+    /* Project filter */
+    const projBtns = document.querySelectorAll('.proj-btn');
+    const projCards = document.querySelectorAll('.proj-card');
+    projBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        projBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        projCards.forEach(c => {
+          const cats = c.dataset.cat || '';
+          c.classList.toggle('hidden', f !== 'all' && !cats.split(' ').includes(f));
+        });
+      });
+    });
+
+    /* Lightbox on proj cards */
+    const lb    = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTit = document.getElementById('lbTitle');
+    projCards.forEach(card => {
+      card.addEventListener('click', () => {
+        lbImg.src = card.querySelector('img').src;
+        lbTit.textContent = card.querySelector('h3').textContent;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    document.getElementById('lbClose').addEventListener('click', () => { lb.classList.remove('open'); document.body.style.overflow = ''; });
+    lb.addEventListener('click', e => { if (e.target === lb) { lb.classList.remove('open'); document.body.style.overflow = ''; } });
+  </script>
+</body>
+</html>

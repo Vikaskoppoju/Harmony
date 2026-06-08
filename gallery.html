@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Harmony Spaces by G</title>
+  <meta name="description" content="Explore our portfolio gallery of luxury interior design and construction projects across Bahrain, UAE, Oman, and India." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Gallery Page ── */
+    .gallery-intro {
+      background: var(--dark-2);
+      padding: 5rem 0 4rem;
+      text-align: center;
+    }
+    .gallery-intro .section-tag { margin: 0 auto 1rem; }
+    .gallery-intro h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--white); margin-bottom: 1rem; }
+    .gallery-intro p { color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+
+    /* Filter Bar */
+    .gallery-filters {
+      background: var(--dark-2);
+      padding: 0 0 3rem;
+      position: sticky;
+      top: 70px;
+      z-index: 100;
+    }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+      background: rgba(9,9,9,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,169,107,0.15);
+    }
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid rgba(200,169,107,0.3);
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--trans);
+      letter-spacing: 0.02em;
+    }
+    .filter-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    /* Gallery Grid */
+    .gallery-section {
+      background: var(--dark);
+      padding: 4rem 0 6rem;
+    }
+    .gallery-grid {
+      columns: 4 280px;
+      column-gap: 1.2rem;
+      padding: 0 1rem;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.2rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: block;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+      border-radius: var(--radius);
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.2rem;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-overlay h4 {
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 1rem;
+      margin: 0 0 0.25rem;
+    }
+    .gallery-item-overlay span {
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .gallery-item-zoom {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 38px;
+      height: 38px;
+      background: rgba(200,169,107,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .gallery-item-zoom { opacity: 1; }
+    .gallery-item-zoom svg { color: var(--dark); }
+
+    /* Hidden items */
+    .gallery-item.hidden { display: none; }
+
+    /* Lightbox */
+    .lb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .lb-overlay.open { display: flex; }
+    .lb-inner {
+      position: relative;
+      max-width: 1000px;
+      width: 100%;
+      max-height: 90vh;
+    }
+    .lb-inner img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: var(--radius);
+      display: block;
+    }
+    .lb-caption {
+      text-align: center;
+      margin-top: 1rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+    }
+    .lb-caption strong { color: var(--gold); }
+    .lb-close {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 2001;
+    }
+    .lb-close:hover { background: var(--gold); color: var(--dark); }
+    .lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 2001;
+    }
+    .lb-nav:hover { background: var(--gold); color: var(--dark); }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+
+    /* Count bar */
+    .gallery-count {
+      text-align: center;
+      padding: 0 0 2.5rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.88rem;
+    }
+    .gallery-count span { color: var(--gold); font-weight: 600; }
+
+    /* Stats strip */
+    .gallery-stats {
+      background: linear-gradient(135deg, var(--dark-3) 0%, var(--mid) 100%);
+      padding: 4rem 0;
+      border-top: 1px solid rgba(200,169,107,0.15);
+      border-bottom: 1px solid rgba(200,169,107,0.15);
+    }
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .num {
+      font-family: var(--font-head);
+      font-size: 2.8rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-item .lbl {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid { columns: 2 160px; }
+      .lb-nav { display: none; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 2 140px; column-gap: 0.6rem; }
+      .gallery-item { margin-bottom: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav + Footer injected by components.js -->
+
+  <!-- Page Hero -->
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80')">
+    <div class="page-hero-content reveal">
+      <p class="section-tag">Our Gallery</p>
+      <h1>Visual Portfolio</h1>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <span>Gallery</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="gallery-intro">
+    <div class="container">
+      <p class="section-tag reveal">Curated Spaces</p>
+      <h2 class="reveal">A Window Into Our World</h2>
+      <p class="reveal">Every image tells the story of a space transformed — from blank canvas to a living, breathing environment that reflects the people who inhabit it.</p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <div class="gallery-filters">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All Works</button>
+      <button class="filter-btn" data-filter="living">Living Spaces</button>
+      <button class="filter-btn" data-filter="bedroom">Bedrooms</button>
+      <button class="filter-btn" data-filter="kitchen">Kitchens</button>
+      <button class="filter-btn" data-filter="bathroom">Bathrooms</button>
+      <button class="filter-btn" data-filter="office">Office &amp; Commercial</button>
+      <button class="filter-btn" data-filter="hospitality">Hospitality</button>
+      <button class="filter-btn" data-filter="outdoor">Outdoor &amp; Landscape</button>
+    </div>
+  </div>
+
+  <!-- Gallery Grid -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="gallery-count" id="galleryCount">Showing <span id="visibleCount">36</span> photos</div>
+      <div class="gallery-grid" id="galleryGrid">
+
+        <!-- Living Spaces -->
+        <div class="gallery-item reveal" data-cat="living" data-title="Contemporary Living Room" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Contemporary Living Room" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Contemporary Living Room</h4>
+            <span>Living Spaces · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bedroom" data-title="Master Bedroom Suite" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80" alt="Master Bedroom Suite" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Master Bedroom Suite</h4>
+            <span>Bedrooms · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="kitchen" data-title="Gourmet Kitchen Design" data-location="Hyderabad">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Gourmet Kitchen Design" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Gourmet Kitchen Design</h4>
+            <span>Kitchens · Hyderabad</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bathroom" data-title="Luxury Spa Bathroom" data-location="Oman">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Luxury Spa Bathroom" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Luxury Spa Bathroom</h4>
+            <span>Bathrooms · Oman</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="office" data-title="Corporate Office Lobby" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Corporate Office Lobby" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Corporate Office Lobby</h4>
+            <span>Office · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="living" data-title="Open Plan Living" data-location="Bangalore">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="Open Plan Living" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Open Plan Living</h4>
+            <span>Living Spaces · Bangalore</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="hospitality" data-title="Boutique Hotel Suite" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Boutique Hotel Suite" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Boutique Hotel Suite</h4>
+            <span>Hospitality · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="outdoor" data-title="Villa Terrace & Pool" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=600&q=80" alt="Villa Terrace and Pool" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Villa Terrace &amp; Pool</h4>
+            <span>Outdoor · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bedroom" data-title="Children's Bedroom" data-location="Hyderabad">
+          <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Children's Bedroom" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Children's Bedroom</h4>
+            <span>Bedrooms · Hyderabad</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="kitchen" data-title="Minimalist Island Kitchen" data-location="Oman">
+          <img src="https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=600&q=80" alt="Minimalist Island Kitchen" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Minimalist Island Kitchen</h4>
+            <span>Kitchens · Oman</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="office" data-title="Creative Studio Space" data-location="Bangalore">
+          <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80" alt="Creative Studio Space" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Creative Studio Space</h4>
+            <span>Office · Bangalore</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="living" data-title="Palatial Majlis Hall" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80" alt="Palatial Majlis Hall" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Palatial Majlis Hall</h4>
+            <span>Living Spaces · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bathroom" data-title="Marble Master Bath" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80" alt="Marble Master Bath" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Marble Master Bath</h4>
+            <span>Bathrooms · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="hospitality" data-title="Restaurant Interior" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Restaurant Interior" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Restaurant Interior</h4>
+            <span>Hospitality · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="outdoor" data-title="Rooftop Garden Retreat" data-location="Hyderabad">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Rooftop Garden Retreat" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Rooftop Garden Retreat</h4>
+            <span>Outdoor · Hyderabad</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="living" data-title="Coastal Villa Lounge" data-location="Oman">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Coastal Villa Lounge" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Coastal Villa Lounge</h4>
+            <span>Living Spaces · Oman</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bedroom" data-title="Penthouse Master Suite" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80" alt="Penthouse Master Suite" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Penthouse Master Suite</h4>
+            <span>Bedrooms · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="office" data-title="Executive Boardroom" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=600&q=80" alt="Executive Boardroom" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Executive Boardroom</h4>
+            <span>Office · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="kitchen" data-title="Dark Luxury Kitchen" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=600&q=80" alt="Dark Luxury Kitchen" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Dark Luxury Kitchen</h4>
+            <span>Kitchens · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="hospitality" data-title="Hotel Lobby Atrium" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Hotel Lobby Atrium" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Hotel Lobby Atrium</h4>
+            <span>Hospitality · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="outdoor" data-title="Landscaped Garden Path" data-location="Bangalore">
+          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80" alt="Landscaped Garden Path" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Landscaped Garden Path</h4>
+            <span>Outdoor · Bangalore</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bathroom" data-title="Freestanding Bath Design" data-location="Oman">
+          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=600&q=80" alt="Freestanding Bath Design" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Freestanding Bath Design</h4>
+            <span>Bathrooms · Oman</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="living" data-title="Mid-Century Modern Living" data-location="Bangalore">
+          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80" alt="Mid-Century Modern Living" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Mid-Century Modern Living</h4>
+            <span>Living Spaces · Bangalore</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="office" data-title="Co-working Hub Design" data-location="Hyderabad">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80" alt="Co-working Hub Design" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Co-working Hub Design</h4>
+            <span>Office · Hyderabad</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bedroom" data-title="Zen Guest Bedroom" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80" alt="Zen Guest Bedroom" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Zen Guest Bedroom</h4>
+            <span>Bedrooms · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="hospitality" data-title="Luxury Spa Lounge" data-location="Oman">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Luxury Spa Lounge" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Luxury Spa Lounge</h4>
+            <span>Hospitality · Oman</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="outdoor" data-title="Pool Deck with Cabana" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80" alt="Pool Deck with Cabana" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Pool Deck with Cabana</h4>
+            <span>Outdoor · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="kitchen" data-title="White Scandinavian Kitchen" data-location="Bangalore">
+          <img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80" alt="White Scandinavian Kitchen" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>White Scandinavian Kitchen</h4>
+            <span>Kitchens · Bangalore</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="living" data-title="Arabian Majlis Lounge" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600&q=80" alt="Arabian Majlis Lounge" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Arabian Majlis Lounge</h4>
+            <span>Living Spaces · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bathroom" data-title="Terrazzo Powder Room" data-location="Bangalore">
+          <img src="https://images.unsplash.com/photo-1620626011761-996317702782?w=600&q=80" alt="Terrazzo Powder Room" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Terrazzo Powder Room</h4>
+            <span>Bathrooms · Bangalore</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="office" data-title="Retail Showroom Layout" data-location="Bahrain">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80" alt="Retail Showroom Layout" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Retail Showroom Layout</h4>
+            <span>Office · Bahrain</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="outdoor" data-title="Courtyard Water Feature" data-location="Oman">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Courtyard Water Feature" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Courtyard Water Feature</h4>
+            <span>Outdoor · Oman</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="hospitality" data-title="Private Dining Room" data-location="Hyderabad">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Private Dining Room" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Private Dining Room</h4>
+            <span>Hospitality · Hyderabad</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="bedroom" data-title="Walk-in Wardrobe Suite" data-location="Abu Dhabi">
+          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80" alt="Walk-in Wardrobe Suite" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>Walk-in Wardrobe Suite</h4>
+            <span>Bedrooms · Abu Dhabi</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+        <div class="gallery-item reveal" data-cat="living" data-title="High-Rise Penthouse Living" data-location="Hyderabad">
+          <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=600&q=80" alt="High-Rise Penthouse Living" loading="lazy" />
+          <div class="gallery-item-overlay">
+            <h4>High-Rise Penthouse Living</h4>
+            <span>Living Spaces · Hyderabad</span>
+          </div>
+          <div class="gallery-item-zoom"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="gallery-stats reveal">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item"><div class="num">500+</div><div class="lbl">Projects Completed</div></div>
+        <div class="stat-item"><div class="num">36</div><div class="lbl">Gallery Images</div></div>
+        <div class="stat-item"><div class="num">5</div><div class="lbl">Countries</div></div>
+        <div class="stat-item"><div class="num">8</div><div class="lbl">Design Styles</div></div>
+        <div class="stat-item"><div class="num">5+</div><div class="lbl">Years of Excellence</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--dark-2);padding:5rem 0;text-align:center;">
+    <div class="container reveal">
+      <p class="section-tag" style="margin:0 auto 1rem;">Start Your Project</p>
+      <h2 style="font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--white);margin-bottom:1rem;">Love What You See?</h2>
+      <p style="color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto 2.5rem;">Let's create a space that inspires you every day. Our team is ready to bring your vision to life.</p>
+      <a href="contact.html" class="btn">Start a Conversation</a>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lb-overlay" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+    <div class="lb-inner">
+      <img id="lbImg" src="" alt="" />
+      <div class="lb-caption"><strong id="lbTitle"></strong> — <span id="lbLocation"></span></div>
+    </div>
+  </div>
+
+  <script src="components.js"></script>
+  <script>
+    const items = Array.from(document.querySelectorAll('.gallery-item'));
+    const countEl = document.getElementById('visibleCount');
+
+    function updateCount() {
+      const visible = items.filter(i => !i.classList.contains('hidden')).length;
+      countEl.textContent = visible;
+    }
+
+    document.getElementById('filterBar').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      items.forEach(item => {
+        const match = f === 'all' || item.dataset.cat === f;
+        item.classList.toggle('hidden', !match);
+      });
+      updateCount();
+    });
+
+    /* Lightbox */
+    let currentIdx = 0;
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbLoc = document.getElementById('lbLocation');
+
+    function openLb(idx) {
+      const visibles = items.filter(i => !i.classList.contains('hidden'));
+      if (!visibles[idx]) return;
+      currentIdx = idx;
+      const item = visibles[idx];
+      lbImg.src = item.querySelector('img').src.replace('w=600', 'w=1200');
+      lbImg.alt = item.dataset.title;
+      lbTitle.textContent = item.dataset.title;
+      lbLoc.textContent = item.dataset.location;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLb() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function navLb(dir) {
+      const visibles = items.filter(i => !i.classList.contains('hidden'));
+      currentIdx = (currentIdx + dir + visibles.length) % visibles.length;
+      openLb(currentIdx);
+    }
+
+    items.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        const visibles = items.filter(it => !it.classList.contains('hidden'));
+        const vIdx = visibles.indexOf(item);
+        openLb(vIdx);
+      });
+    });
+
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    document.getElementById('lbPrev').addEventListener('click', () => navLb(-1));
+    document.getElementById('lbNext').addEventListener('click', () => navLb(1));
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') navLb(-1);
+      if (e.key === 'ArrowRight') navLb(1);
+    });
+  </script>
+</body>
+</html>

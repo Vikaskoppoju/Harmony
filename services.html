@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Harmony Spaces by G</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── SERVICE DETAIL CARDS ── */
+    .service-detail {
+      padding: 6rem 0;
+      border-bottom: 1px solid #f0ede8;
+    }
+    .service-detail:last-child { border-bottom: none; }
+    .service-detail:nth-child(even) { background: var(--light); }
+    .service-detail-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .service-detail:nth-child(even) .service-detail-grid { direction: rtl; }
+    .service-detail:nth-child(even) .service-detail-grid > * { direction: ltr; }
+    .service-img-block { border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow); }
+    .service-img-block img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .service-img-block:hover img { transform: scale(1.04); }
+    .service-detail-content {}
+    .service-detail-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .service-detail-content h2 { font-size: clamp(1.8rem,3vw,2.5rem); margin-bottom: 0.75rem; }
+    .service-detail-content .lead { font-size: 1.05rem; color: var(--dark); font-weight: 500; margin-bottom: 1rem; line-height: 1.7; }
+    .service-detail-content p { color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .service-features { list-style: none; margin: 1.5rem 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1.5rem; }
+    .service-features li { font-size: 0.88rem; color: var(--text); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .service-features li::before { content: '✦'; color: var(--gold); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15rem; }
+    .service-detail-content .btn { margin-top: 0.5rem; }
+
+    /* ── WHO WE SERVE ── */
+    .clients-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    .client-card {
+      background: var(--dark-3); border-radius: 16px; padding: 2rem;
+      text-align: center; border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s;
+    }
+    .client-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+    .client-card .ci { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .client-card h3 { color: var(--white); font-size: 1rem; margin-bottom: 0.4rem; }
+    .client-card p  { color: rgba(255,255,255,0.45); font-size: 0.82rem; line-height: 1.6; }
+
+    /* ── PROCESS MINI ── */
+    .process-mini-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; }
+    .pm-step { text-align: center; position: relative; }
+    .pm-step::after {
+      content: '→'; position: absolute; right: -0.5rem; top: 1.2rem;
+      font-size: 1.2rem; color: var(--gold); opacity: 0.4;
+    }
+    .pm-step:last-child::after { display: none; }
+    .pm-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--dark); font-weight: 700; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      box-shadow: 0 6px 20px rgba(200,169,107,0.3);
+    }
+    .pm-step h4 { font-size: 0.88rem; margin-bottom: 0.4rem; }
+    .pm-step p  { font-size: 0.78rem; color: var(--muted); padding: 0 0.5rem; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, #1a140a 100%);
+      padding: 5rem 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=30&fit=crop') center/cover;
+      opacity: 0.08;
+    }
+    .cta-banner > .container { position: relative; }
+    .cta-banner h2 { font-size: clamp(2rem,4vw,3rem); color: var(--white); margin-bottom: 1rem; }
+    .cta-banner p  { color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    @media(max-width:900px) {
+      .service-detail-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .service-detail:nth-child(even) .service-detail-grid { direction: ltr; }
+      .clients-grid { grid-template-columns: repeat(2,1fr); }
+      .process-mini-grid { grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+      .pm-step::after { display: none; }
+    }
+    @media(max-width:600px) {
+      .service-features { grid-template-columns: 1fr; }
+      .clients-grid { grid-template-columns: 1fr 1fr; }
+      .process-mini-grid { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav injected by components.js -->
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&fit=crop" alt="Our Services" />
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Services</p>
+      <h1>Our <em>Services</em></h1>
+      <p>End-to-end design and construction solutions — from concept to handover — delivered with passion and precision.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════
+       SERVICE 1 — RESIDENTIAL
+  ══════════════════════════ -->
+  <div id="residential" class="service-detail">
+    <div class="container">
+      <div class="service-detail-grid">
+        <div class="service-img-block tilt-card reveal">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=80&fit=crop" alt="Residential Design" loading="lazy" />
+        </div>
+        <div class="service-detail-content reveal" style="--delay:0.15s">
+          <div class="service-detail-icon">🏡</div>
+          <span class="section-tag">Service 01</span>
+          <h2>Residential Design</h2>
+          <p class="lead">Bespoke interiors for villas, apartments, penthouses, and palaces — spaces that feel unmistakably like home.</p>
+          <p>Our residential design service is a deeply personal process. We begin by understanding how you live — your daily rhythms, aesthetic preferences, family dynamics, and aspirations — and translate all of that into a space that is both beautiful and deeply liveable.</p>
+          <p>From a complete villa fit-out to a single room refresh, our designers approach every project with the same rigour, creativity, and attention to detail that has earned us 500+ satisfied clients across five countries.</p>
+          <ul class="service-features">
+            <li>Full-home interior design</li>
+            <li>Villa & bungalow fit-out</li>
+            <li>Apartment & penthouse interiors</li>
+            <li>Master bedroom suites</li>
+            <li>Kitchen & dining design</li>
+            <li>Living & family rooms</li>
+            <li>Home theatre & entertainment</li>
+            <li>Children's rooms & nurseries</li>
+            <li>Custom joinery & wardrobes</li>
+            <li>Smart home integration</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Get a Residential Quote →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       SERVICE 2 — COMMERCIAL
+  ══════════════════════════ -->
+  <div id="commercial" class="service-detail">
+    <div class="container">
+      <div class="service-detail-grid">
+        <div class="service-img-block tilt-card reveal">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80&fit=crop" alt="Commercial Interiors" loading="lazy" />
+        </div>
+        <div class="service-detail-content reveal" style="--delay:0.15s">
+          <div class="service-detail-icon">🏢</div>
+          <span class="section-tag">Service 02</span>
+          <h2>Commercial Interiors</h2>
+          <p class="lead">Offices, retail showrooms, restaurants, hotels, and hospitality venues — designed to perform as beautifully as they look.</p>
+          <p>Great commercial design does more than impress clients — it motivates teams, strengthens brand identity, and drives business results. We understand the unique demands of each sector and design accordingly: agile, branded, and built to last.</p>
+          <p>Our commercial portfolio spans corporate headquarters in Abu Dhabi, boutique hotels in Oman, retail flagships in Hyderabad, and F&B concepts across Bahrain — each one a testament to design that works.</p>
+          <ul class="service-features">
+            <li>Corporate office design</li>
+            <li>Co-working & flex spaces</li>
+            <li>Retail & showroom fit-out</li>
+            <li>Restaurant & café design</li>
+            <li>Hotel & resort interiors</li>
+            <li>Spa & wellness centres</li>
+            <li>Healthcare facilities</li>
+            <li>Educational institutions</li>
+            <li>Brand experience spaces</li>
+            <li>Reception & lobby design</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Get a Commercial Quote →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       SERVICE 3 — CONSTRUCTION
+  ══════════════════════════ -->
+  <div id="construction" class="service-detail">
+    <div class="container">
+      <div class="service-detail-grid">
+        <div class="service-img-block tilt-card reveal">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80&fit=crop" alt="Construction & Fit-Out" loading="lazy" />
+        </div>
+        <div class="service-detail-content reveal" style="--delay:0.15s">
+          <div class="service-detail-icon">🏗️</div>
+          <span class="section-tag">Service 03</span>
+          <h2>Construction & Fit-Out</h2>
+          <p class="lead">Full-cycle construction from structural work to premium fit-out — a single accountable team from foundation to finishing touch.</p>
+          <p>Too often, design and construction are siloed — causing miscommunication, delays, and costly rework. At Harmony Spaces, we offer a fully integrated build service where our architects, designers, and site teams work as one, keeping your vision intact from day one to handover day.</p>
+          <p>We operate under international quality standards and maintain strict timelines through dedicated project managers at every one of our five locations.</p>
+          <ul class="service-features">
+            <li>Structural & civil works</li>
+            <li>MEP (Mechanical, Electrical, Plumbing)</li>
+            <li>Premium fit-out & finishing</li>
+            <li>False ceilings & flooring</li>
+            <li>Joinery & custom millwork</li>
+            <li>Stone, marble & tile works</li>
+            <li>Painting & wallcovering</li>
+            <li>Lighting installation</li>
+            <li>Renovation & refurbishment</li>
+            <li>Site supervision & QC</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Get a Construction Quote →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       SERVICE 4 — 3D VIZ
+  ══════════════════════════ -->
+  <div id="visualization" class="service-detail">
+    <div class="container">
+      <div class="service-detail-grid">
+        <div class="service-img-block tilt-card reveal">
+          <img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?w=900&q=80&fit=crop" alt="3D Visualization" loading="lazy" />
+        </div>
+        <div class="service-detail-content reveal" style="--delay:0.15s">
+          <div class="service-detail-icon">🎨</div>
+          <span class="section-tag">Service 04</span>
+          <h2>3D Visualization</h2>
+          <p class="lead">Photo-realistic renders, walkthroughs, and VR experiences that let you feel your space before a single wall is built.</p>
+          <p>Decision-making becomes easy when you can see exactly what you're getting. Our visualization team produces renders so realistic that clients often frame them as artwork. We use industry-leading software — 3ds Max, V-Ray, and Unreal Engine — to create immersive previews of your future space.</p>
+          <p>This service removes all guesswork and expensive change orders, ensuring both parties are aligned before any construction begins.</p>
+          <ul class="service-features">
+            <li>Photo-realistic still renders</li>
+            <li>360° panoramic views</li>
+            <li>Animated 3D walkthroughs</li>
+            <li>Virtual reality (VR) tours</li>
+            <li>Mood boards & concept visuals</li>
+            <li>Material & finish mock-ups</li>
+            <li>Architectural elevations</li>
+            <li>Daylight & artificial lighting studies</li>
+            <li>Furniture layout visualisation</li>
+            <li>Before & after comparisons</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Request a 3D Render →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       SERVICE 5 — FURNITURE
+  ══════════════════════════ -->
+  <div id="furniture" class="service-detail">
+    <div class="container">
+      <div class="service-detail-grid">
+        <div class="service-img-block tilt-card reveal">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80&fit=crop" alt="Furniture & Décor" loading="lazy" />
+        </div>
+        <div class="service-detail-content reveal" style="--delay:0.15s">
+          <div class="service-detail-icon">🛋️</div>
+          <span class="section-tag">Service 05</span>
+          <h2>Furniture & Décor</h2>
+          <p class="lead">Curated, bespoke, and sourced — furniture and décor that complete the story of every space we design.</p>
+          <p>Our procurement and styling team works with an exclusive network of international and artisan furniture manufacturers, fabric houses, and decorative art suppliers to furnish your space with pieces that are both beautiful and built to last.</p>
+          <p>We also design fully bespoke furniture — from statement dining tables to custom-built wardrobes — fabricated to exact specifications by our skilled workshop partners.</p>
+          <ul class="service-features">
+            <li>Bespoke furniture design</li>
+            <li>International brand procurement</li>
+            <li>Fabric & upholstery selection</li>
+            <li>Lighting fixtures & chandeliers</li>
+            <li>Art curation & sourcing</li>
+            <li>Decorative accessories styling</li>
+            <li>Soft furnishings & curtains</li>
+            <li>Rugs & floor coverings</li>
+            <li>Mirrors & wall décor</li>
+            <li>Tabletop & plant styling</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Enquire About Furnishing →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════
+       SERVICE 6 — LANDSCAPE
+  ══════════════════════════ -->
+  <div id="landscape" class="service-detail">
+    <div class="container">
+      <div class="service-detail-grid">
+        <div class="service-img-block tilt-card reveal">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80&fit=crop" alt="Landscape & Outdoor" loading="lazy" />
+        </div>
+        <div class="service-detail-content reveal" style="--delay:0.15s">
+          <div class="service-detail-icon">🌿</div>
+          <span class="section-tag">Service 06</span>
+          <h2>Landscape & Outdoor</h2>
+          <p class="lead">Outdoor living spaces, gardens, pools, and terraces designed to extend the beauty of your interiors into the open air.</p>
+          <p>In the Middle East and India, outdoor living is a way of life. Whether it's a landscaped garden in Bangalore, a rooftop terrace in Abu Dhabi, or a pool courtyard in Bahrain, our landscape team creates outdoor environments that are as considered and luxurious as any interior.</p>
+          <p>We combine planting design, hardscaping, lighting, and outdoor furniture selection into a cohesive outdoor experience that complements your home or commercial property.</p>
+          <ul class="service-features">
+            <li>Garden & landscape design</li>
+            <li>Swimming pool design & landscaping</li>
+            <li>Outdoor terraces & decks</li>
+            <li>Rooftop garden design</li>
+            <li>Pergolas & shading structures</li>
+            <li>Irrigation & drainage systems</li>
+            <li>Outdoor lighting design</li>
+            <li>Outdoor kitchen & BBQ areas</li>
+            <li>Planters & vertical gardens</li>
+            <li>Hardscaping & paving</li>
+          </ul>
+          <a href="contact.html" class="btn btn-primary">Enquire About Landscape →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WHO WE SERVE ── -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag light">Our Clientele</span>
+        <h2 class="section-title light">Who We Serve</h2>
+        <p class="section-sub light">From private homeowners to global developers — we bring the same passion to every client.</p>
+      </div>
+      <div class="clients-grid">
+        <div class="client-card reveal">
+          <div class="ci">🏠</div>
+          <h3>Homeowners</h3>
+          <p>Private villas, apartments, and penthouses across India and the Middle East.</p>
+        </div>
+        <div class="client-card reveal" style="--delay:0.1s">
+          <div class="ci">🏨</div>
+          <h3>Hospitality Groups</h3>
+          <p>Hotels, resorts, spas, and F&B venues that demand exceptional guest experiences.</p>
+        </div>
+        <div class="client-card reveal" style="--delay:0.2s">
+          <div class="ci">🏗️</div>
+          <h3>Real Estate Developers</h3>
+          <p>Fit-out and model apartment design for residential and mixed-use developments.</p>
+        </div>
+        <div class="client-card reveal" style="--delay:0.3s">
+          <div class="ci">💼</div>
+          <h3>Corporate Clients</h3>
+          <p>Offices, headquarters, and brand experience centres for businesses across sectors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── OUR PROCESS ── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">How We Work</span>
+        <h2 class="section-title">Our 5-Step Process</h2>
+      </div>
+      <div class="process-mini-grid">
+        <div class="pm-step reveal">
+          <div class="pm-num">01</div>
+          <h4>Discovery</h4>
+          <p>Understand your vision, lifestyle, budget, and timeline in depth.</p>
+        </div>
+        <div class="pm-step reveal" style="--delay:0.1s">
+          <div class="pm-num">02</div>
+          <h4>Concept</h4>
+          <p>Mood boards, space plans, and 3D concepts for your review and approval.</p>
+        </div>
+        <div class="pm-step reveal" style="--delay:0.2s">
+          <div class="pm-num">03</div>
+          <h4>Design Dev</h4>
+          <p>Technical drawings, material selections, and vendor coordination.</p>
+        </div>
+        <div class="pm-step reveal" style="--delay:0.3s">
+          <div class="pm-num">04</div>
+          <h4>Execution</h4>
+          <p>On-site management with quality control at every construction stage.</p>
+        </div>
+        <div class="pm-step reveal" style="--delay:0.4s">
+          <div class="pm-num">05</div>
+          <h4>Handover</h4>
+          <p>Final styling, walkthrough, snagging list, and post-handover support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ── -->
+  <div class="cta-banner">
+    <div class="container">
+      <h2 class="reveal">Ready to Transform Your Space?</h2>
+      <p class="reveal" style="--delay:0.1s">Tell us about your project and we'll connect you with the right design team within 24 hours.</p>
+      <div class="cta-actions reveal" style="--delay:0.2s">
+        <a href="contact.html" class="btn btn-primary">Start a Project</a>
+        <a href="projects.html" class="btn btn-ghost">View Our Work</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer injected by components.js -->
+  <script src="components.js"></script>
+</body>
+</html>
