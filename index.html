@@ -778,5 +778,57 @@
   </a>
 
   <script src="script.js"></script>
+  <script>
+    /* Home page contact form — Web3Forms */
+    document.getElementById('contactForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+
+      const required = ['fname', 'lname', 'email', 'message'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor = 'var(--gold)'; valid = false; }
+        else el.style.borderColor = '';
+      });
+      if (!valid) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      const data = {
+        access_key: '8c1ee0b8-00f6-4f9a-948a-8456f9e26da6',
+        subject: `New Enquiry from ${document.getElementById('fname').value.trim()} ${document.getElementById('lname').value.trim()} — Harmony Spaces by G`,
+        from_name: 'Harmony Spaces by G',
+        name:    `${document.getElementById('fname').value.trim()} ${document.getElementById('lname').value.trim()}`,
+        email:   document.getElementById('email').value.trim(),
+        phone:   document.getElementById('phone').value.trim() || 'Not provided',
+        service: document.getElementById('service').value || 'Not specified',
+        message: document.getElementById('message').value.trim()
+      };
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success) {
+          form.reset();
+          document.getElementById('formSuccess').style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Send Message →';
+        } else {
+          throw new Error(json.message);
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Send Message →';
+        alert('Something went wrong. Please email us at ceo@harmonyspacesbyg.com');
+      }
+    });
+  </script>
 </body>
 </html>
