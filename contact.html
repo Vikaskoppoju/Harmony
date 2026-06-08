@@ -807,17 +807,48 @@
       if (!isOpen) item.classList.add('open');
     });
 
-    /* Form submission */
+    /* Form submission — mailto (no backend required) */
     document.getElementById('contactForm').addEventListener('submit', e => {
       e.preventDefault();
       const form = e.target;
-      const btn = form.querySelector('button[type="submit"]');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
+
+      // Basic validation
+      const required = ['fname', 'lname', 'email', 'message'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor = 'var(--gold)'; valid = false; }
+        else el.style.borderColor = '';
+      });
+      if (!valid) return;
+
+      const fname   = document.getElementById('fname').value.trim();
+      const lname   = document.getElementById('lname').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const phone   = document.getElementById('phone').value.trim();
+      const country = document.getElementById('country').value;
+      const service = document.getElementById('service').value;
+      const budget  = document.getElementById('budget').value;
+      const message = document.getElementById('message').value.trim();
+
+      const subject = encodeURIComponent(`New Enquiry from ${fname} ${lname} — Harmony Spaces by G`);
+      const body = encodeURIComponent(
+        `Name: ${fname} ${lname}\n` +
+        `Email: ${email}\n` +
+        `Phone: ${phone || 'Not provided'}\n` +
+        `Location: ${country || 'Not specified'}\n` +
+        `Service: ${service || 'Not specified'}\n` +
+        `Budget: ${budget || 'Not specified'}\n\n` +
+        `Message:\n${message}`
+      );
+
+      window.location.href = `mailto:ceo@harmonyspacesbyg.com?subject=${subject}&body=${body}`;
+
+      // Show success after a short delay
       setTimeout(() => {
         form.style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';
-      }, 1200);
+      }, 800);
     });
   </script>
 </body>
