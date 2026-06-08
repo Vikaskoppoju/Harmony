@@ -4,7 +4,7 @@ const NAV_HTML = `
 <nav id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <img src="logo1_nobg.png" alt="Harmony Spaces by G" class="logo-img"
+      <img src="logo.png" alt="Harmony Spaces by G" class="logo-img"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
       <span class="logo-fallback" style="display:none">
         <span class="logo-mark">H</span>
@@ -40,7 +40,7 @@ const FOOTER_HTML = `
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <img src="logo1_nobg.png" alt="Harmony Spaces by G" class="logo-img footer-logo-img"
+          <img src="logo.png" alt="Harmony Spaces by G" class="logo-img footer-logo-img"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
           <span class="logo-fallback" style="display:none">
             <span class="logo-mark">H</span>
