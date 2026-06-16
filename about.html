@@ -109,16 +109,104 @@
     .timeline-item p  { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
 
     /* ── TEAM ── */
-    .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
-    .team-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.07); transition: transform 0.35s, box-shadow 0.35s; }
-    .team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
-    .team-card-img { aspect-ratio: 1; overflow: hidden; }
-    .team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-    .team-card:hover .team-card-img img { transform: scale(1.06); }
-    .team-card-body { padding: 1.5rem; }
-    .team-card-body h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
-    .team-card-body .role { font-size: 0.82rem; color: var(--gold); font-weight: 600; margin-bottom: 0.75rem; }
-    .team-card-body p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .team-section-inner { background: linear-gradient(135deg, #f9f6f0 0%, #fff 60%, #f5f1ea 100%); border-radius: 28px; padding: 3rem; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .team-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .team-photo-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto 1.75rem;
+    }
+    .team-photo-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .team-member:hover .team-photo-ring { opacity: 0.6; transform: scale(1); }
+    .team-photo {
+      aspect-ratio: 3/4;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+      position: relative;
+    }
+    .team-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+    .team-member:hover .team-photo img { transform: scale(1.05); }
+    .team-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,8,5,0.72) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex; align-items: flex-end; padding: 1.4rem 1.2rem;
+    }
+    .team-member:hover .team-photo-overlay { opacity: 1; }
+    .team-photo-overlay p {
+      font-size: 0.82rem; color: rgba(255,255,255,0.88);
+      line-height: 1.6; text-align: left; margin: 0;
+    }
+    .team-number {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 32px; height: 32px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--dark);
+      box-shadow: 0 4px 14px rgba(200,169,107,0.5);
+    }
+    .team-info { width: 100%; }
+    .team-divider {
+      width: 36px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      margin: 0 auto 0.9rem;
+      border-radius: 2px;
+    }
+    .team-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem; font-weight: 600;
+      color: var(--dark); margin-bottom: 0.3rem;
+    }
+    .team-info .role {
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+    .team-info .desc {
+      font-size: 0.84rem; color: var(--muted);
+      line-height: 1.7; max-width: 280px; margin: 0 auto;
+    }
+    @media (max-width: 900px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .team-section-inner { padding: 2rem; }
+      .team-photo-wrap { max-width: 220px; }
+    }
+    @media (max-width: 540px) {
+      .team-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .team-section-inner { padding: 1.5rem; border-radius: 20px; }
+      .team-photo-wrap { max-width: 240px; }
+      .team-photo-overlay { opacity: 1; }
+      .team-photo-ring { opacity: 0.4; transform: scale(1); }
+    }
 
     /* ── VALUES ── */
     .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
@@ -378,36 +466,69 @@
         <h2 class="section-title">The Team Behind the Experience</h2>
         <p class="section-sub">A dedicated leadership trio shaping client care, marketing impact, and operational excellence for every project.</p>
       </div>
-      <div class="team-grid">
-        <div class="team-card reveal">
-          <div class="team-card-img">
-            <img src="shinny.jpeg" alt="Shinny — Client Relations Manager" loading="lazy" />
+      <div class="team-section-inner reveal" style="--delay:0.1s">
+        <div class="team-grid">
+
+          <!-- Member 1 -->
+          <div class="team-member">
+            <div class="team-photo-wrap">
+              <div class="team-photo-ring"></div>
+              <div class="team-photo">
+                <img src="shinny.jpeg" alt="Shinny Madda — Client Relations Manager" loading="lazy" />
+                <div class="team-photo-overlay">
+                  <p>Shinny builds strong client connections and ensures every interaction is personal, efficient, and consistent with our premium service standards.</p>
+                </div>
+                <div class="team-number">01</div>
+              </div>
+            </div>
+            <div class="team-info">
+              <div class="team-divider"></div>
+              <h3>Shinny Madda</h3>
+              <div class="role">Client Relations Manager</div>
+              <p class="desc">Shinny builds strong client connections and ensures every interaction is personal, efficient, and consistent with our premium service standards.</p>
+            </div>
           </div>
-          <div class="team-card-body">
-            <h3>Shinny Madda</h3>
-            <div class="role">Client Relations Manager</div>
-            <p>Shinny builds strong client connections and ensures every interaction is personal, efficient, and consistent with our premium service standards.</p>
+
+          <!-- Member 2 -->
+          <div class="team-member">
+            <div class="team-photo-wrap">
+              <div class="team-photo-ring"></div>
+              <div class="team-photo">
+                <img src="sunny.jpeg" alt="Sunny Madda — Marketing Manager" loading="lazy" />
+                <div class="team-photo-overlay">
+                  <p>Sunny leads our brand communications, creating campaigns that highlight Harmony Spaces’ luxury aesthetics and attract discerning clients.</p>
+                </div>
+                <div class="team-number">02</div>
+              </div>
+            </div>
+            <div class="team-info">
+              <div class="team-divider"></div>
+              <h3>Sunny Madda</h3>
+              <div class="role">Marketing Manager</div>
+              <p class="desc">Sunny leads our brand communications, creating campaigns that highlight Harmony Spaces’ luxury aesthetics and attract discerning clients.</p>
+            </div>
           </div>
-        </div>
-        <div class="team-card reveal" style="--delay:0.1s">
-          <div class="team-card-img">
-            <img src="sunny.jpeg" alt="Sunny — Marketing Manager" loading="lazy" />
+
+          <!-- Member 3 -->
+          <div class="team-member">
+            <div class="team-photo-wrap">
+              <div class="team-photo-ring"></div>
+              <div class="team-photo">
+                <img src="vikas.jpeg" alt="Vikas Koppoju — Operations Head" loading="lazy" />
+                <div class="team-photo-overlay">
+                  <p>Vikas ensures flawless execution on every project, coordinating teams, timelines, and quality checks from concept through delivery.</p>
+                </div>
+                <div class="team-number">03</div>
+              </div>
+            </div>
+            <div class="team-info">
+              <div class="team-divider"></div>
+              <h3>Vikas Koppoju</h3>
+              <div class="role">Operations Head</div>
+              <p class="desc">Vikas ensures flawless execution on every project, coordinating teams, timelines, and quality checks from concept through delivery.</p>
+            </div>
           </div>
-          <div class="team-card-body">
-            <h3>Sunny Madda</h3>
-            <div class="role">Marketing Manager</div>
-            <p>Sunny leads our brand communications, creating campaigns that highlight Harmony Spaces’ luxury aesthetics and attract discerning clients.</p>
-          </div>
-        </div>
-        <div class="team-card reveal" style="--delay:0.2s">
-          <div class="team-card-img">
-            <img src="vikas.jpeg" alt="Vikas — Operations Head" loading="lazy" />
-          </div>
-          <div class="team-card-body">
-            <h3>Vikas Koppoju</h3>
-            <div class="role">Operations Head</div>
-            <p>Vikas ensures flawless execution on every project, coordinating teams, timelines, and quality checks from concept through delivery.</p>
-          </div>
+
         </div>
       </div>
     </div>
